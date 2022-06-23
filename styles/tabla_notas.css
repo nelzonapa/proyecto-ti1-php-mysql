@@ -1,0 +1,87 @@
+.table-container-notas{
+  /* margin: 0 21 %; */
+  /* width: 800px; */
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.tabla-notas{
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+  border-collapse: collapse;
+  width: 80%;
+}
+/*th,td{
+  border: solid 1px #0f2fbe;*/
+  /* width: 60px; */
+  /* height: 50px; */
+  /* padding: 6px 20px; */
+ 
+
+.btnEliminar{
+  width: 100%;
+  height: 45px;
+  background-color: #24303c;
+  border-radius: 5px;
+  border: 1px solid #24303c;;
+  color: #fff;
+  font-size: 14px;
+}
+.btnEliminar:hover{
+  cursor: pointer;
+  background-color: #24303c;
+  border: 1px solid #24303c;
+}
+
+.btn-editar a{
+  text-decoration: none;
+  color: #fff;
+}
+.espacios-tabla td{
+  width: 5px;
+}
+
+tr .btns{
+  width: 120px;
+}
+tr .names{
+  width: 150px;
+}
+/* .btns form{
+  width: 80px;
+  height: 30px;
+} */
+.btn-en-tabla{
+  width: 120px;
+  height: 30px;
+  background-color: #0f2fbe;
+  color: #fff;
+  border: 1px transparent;
+  border-radius: 5px;
+}
+.btn-en-tabla:hover{
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  border: 1px #0f2fbe solid;
+}
+
+.table-info-aula-ti{
+  text-align: center;
+  width: 80%;
+  margin-left: 18%;
+  margin-top: 50px;
+}
+
+.esp_notaFinal{
+  background-color: #9ba0e5;
+}
+
+
+/* .table-container-notas th{
+  width: 80px;
+  height: 100px;
+  background-color: #1739f7;
+} */

@@ -12,5 +12,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   }
 }
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  $totalAsistentes = $_POST["totalP"];
+  $totalAusentes = $_POST["totalA"];
+  $BaseDatos->insTotalDia($totalAsistentes,$totalAusentes,$dia);
+}
 $BaseDatos->cerrar();
+
+
+
 ?>

@@ -4,7 +4,7 @@
 Elegir curso
 
 <div class="container-cursos">
-  <form action="view_notas.php" method="post">
+  <form class="form_seleccionCurso" action="view_notas.php" method="post">
     <button id="boton1" name="botonCurso" class="boton" type="submit" value="ti1" >Trabajo Interdisciplinar 1</button>
     <button id="boton2" name="botonCurso" class="boton" type="submit" value="dbp" >Desarrollo Basado en Plataformas</button>
     <button id="boton3" name="botonCurso" class="boton" type="submit" value="cc2" >Ciencia de la Computacion II</button>

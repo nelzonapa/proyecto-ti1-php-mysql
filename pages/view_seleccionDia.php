@@ -25,6 +25,6 @@
         <button id="boton20" name="botonDia" class="boton" type="submit" value="dia_20" >asistencia20</button>
 
     </form>
-    
+    <button id="botonRegresar" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">Volver</button>
 
 <?php include('../templates/footer.php'); ?>

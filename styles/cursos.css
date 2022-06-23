@@ -1,0 +1,15 @@
+.form_seleccionCurso button{
+  width: 130px;
+  height: 100px;
+  background-color: rgb(32, 103, 235);
+  color: #fff;
+  border-radius: 5px;
+  border: 1px transparent;
+
+}
+.form_seleccionCurso button:hover{
+  cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  border: 1px rgb(1, 60, 253) solid;
+}

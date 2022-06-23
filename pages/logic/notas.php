@@ -13,6 +13,11 @@ $sql = "SELECT * FROM estudiantes";
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeEstudiantes = $consulta->fetchAll();
+//------------------- lista de estudaintes y sus notas ---------------ojoooooooo
+$sql = "SELECT * FROM estadistica_diaria";
+$consulta = $conexionDB->prepare($sql);
+$consulta->execute();
+$listaDecondiciones = $consulta->fetchAll();
 // ---------------- Numero de desaprobados ----------------------
 $sql2 = "SELECT COUNT(id_alumno) as 'CantDesaprobados'
         FROM estudiantes WHERE nota_final<10.5";

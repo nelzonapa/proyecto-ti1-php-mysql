@@ -11,51 +11,51 @@
 <h3>Asignatura: <?php echo $asignatura; ?></h3>
 <button class="btn-editar"><a href="../resources/pdf_de_prueba.pdf" download>Descargar Registro</a> </button>
   <div class="table-container-notas">
-  <table id="tablaUsuarios" class="tabla-notas">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Apellidos y Nombres</th>
-        <th>Continua 1</th>
-        <th>Parcial 1</th>
-        <th>Continua 2</th>
-        <th>Parcial 2</th>
-        <th>Continua 3</th>
-        <th>Parcial 3</th>
-        <th>Nota Final</th>
-        <th>Operacion</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach($listaDeEstudiantes as $estudiante){ ?>
-        <tr class="espacios-tabla">
-          <td> <?php echo $estudiante['id_alumno']; ?> </td>
-          <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
-          <td> <?php echo $estudiante['continua_1']; ?> </td>
-          <td> <?php echo $estudiante['parcial_1']; ?> </td>
-          <td> <?php echo $estudiante['continua_2']; ?> </td>
-          <td> <?php echo $estudiante['parcial_2']; ?> </td>
-          <td> <?php echo $estudiante['continua_3']; ?> </td>
-          <td> <?php echo $estudiante['parcial_3']; ?> </td>
-          <td> <?php echo $estudiante['nota_final']; ?> </td>
-          <td class="btns">
-            <form method="post" action="view_form_editar_alumno.php">
-              <input type="hidden" name="id" value="<?php echo $estudiante['id_alumno']; ?>">
-              <input type="hidden" name="curso" value="<?php echo $cursoElegido; ?>">
-              <button class="btn-en-tabla" type="submit">Editar</button>
-            </form>
-            <form method="post" action="view_info_alumno.php" >
-              <input type="hidden" name="id" value="ver_<?php echo $estudiante['id_alumno']; ?>">
-              <input type="hidden" name="curso" value="ver_<?php echo $cursoElegido; ?>">
-              <button class="btn-en-tabla" type="submit">Ver</button>
-            </form>
-          </td>
+    <table id="tablaUsuarios" class="tabla-notas">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Apellidos y Nombres</th>
+          <th>Continua 1</th>
+          <th>Parcial 1</th>
+          <th>Continua 2</th>
+          <th>Parcial 2</th>
+          <th>Continua 3</th>
+          <th>Parcial 3</th>
+          <th class="esp_notaFinal" >Nota Final</th>
+          <th>Operacion</th>
         </tr>
-      <?php 
-        } 
-      ?>
-    </tbody>  
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach($listaDeEstudiantes as $estudiante){ ?>
+          <tr class="espacios-tabla">
+            <td> <?php echo $estudiante['id_alumno']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['continua_1']; ?> </td>
+            <td> <?php echo $estudiante['parcial_1']; ?> </td>
+            <td> <?php echo $estudiante['continua_2']; ?> </td>
+            <td> <?php echo $estudiante['parcial_2']; ?> </td>
+            <td> <?php echo $estudiante['continua_3']; ?> </td>
+            <td> <?php echo $estudiante['parcial_3']; ?> </td>
+            <td class="esp_notaFinal"> <?php echo $estudiante['nota_final']; ?> </td>
+            <td class="btns">
+              <form method="post" action="view_form_editar_alumno.php">
+                <input type="hidden" name="id" value="<?php echo $estudiante['id_alumno']; ?>">
+                <input type="hidden" name="curso" value="<?php echo $cursoElegido; ?>">
+                <button class="btn-en-tabla" type="submit">Editar</button>
+              </form>
+              <form method="post" action="view_info_alumno.php" >
+                <input type="hidden" name="id" value="ver_<?php echo $estudiante['id_alumno']; ?>">
+                <input type="hidden" name="curso" value="ver_<?php echo $cursoElegido; ?>">
+                <button class="btn-en-tabla" type="submit">Ver</button>
+              </form>
+            </td>
+          </tr>
+        <?php 
+          } 
+        ?>
+      </tbody>  
+    </table>
   </div>
   <br><br>
   <h3>Datos del Curso</h3>
@@ -98,11 +98,11 @@
     </thead>
     <tbody>
       <tr>
-        <td>Edward hinojosa</td>
+        <td>Lupo Condori Avelino</td>
         <td> <?php echo "8"; ?> </td>
       </tr>
       <tr>
-        <td>Pedro god</td>
+        <td>Zhong Callasi Linghai Joaquin</td>
         <td> <?php echo "9"; ?> </td>
       </tr>
     </tbody>  

@@ -14,11 +14,12 @@ if(!isset($_SESSION['usuario'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/nav.css">
-    <!-- <link rel="stylesheet" href="../components/css/asistencia.css">
-    <link rel="stylesheet" href="../components/css/notas.css">
-    <link rel="stylesheet" href="../components/css/form_editar.css">
-    <link rel="stylesheet" href="../components/css/nosotros.css">
-    <link rel="stylesheet" href="../components/css/footer.css"> -->
+    <link rel="stylesheet" href="../styles/tabla_notas.css">
+    <link rel="stylesheet" href="../styles/form_editar.css">
+    <link rel="stylesheet" href="../styles/inicio.css">
+    <link rel="stylesheet" href="../styles/seleccionDia.css">
+    <link rel="stylesheet" href="../styles/cursos.css">
+    
     <script type="text/javascript" src="../sections/codigo.js"></script> 
     <title>Document</title>
   </head>
@@ -29,7 +30,7 @@ if(!isset($_SESSION['usuario'])){
         <h2 class="logo">System<span> Attendance</span></h2>
         <ul>
           <li><a href="view_inicio.php">Inicio</a></li>
-          <li><a href="view_seleccionDia.php">Asistencia</a></li>
+          <li><a href="view_menuAsistencia.php">Asistencia</a></li>
           <li><a href="view_cursos.php">Notas</a></li>
           <li><a href="view_nosotros.php">Nosotros</a></li>
         </ul>

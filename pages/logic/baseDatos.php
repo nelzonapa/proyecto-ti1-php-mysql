@@ -31,6 +31,27 @@ class baseDEdatos{
     return false;
   }
 
+  function insTotalDia($totalP,$totalA,$dia){
+    mysqli_query($this->conexion,"UPDATE estadistica_diaria SET $dia = ($totalP) WHERE id = 1");
+    mysqli_query($this->conexion,"UPDATE estadistica_diaria SET $dia = ($totalA) WHERE id = 2");
+    if(empty($error)){
+      return true;
+    }
+    echo "Error al insertar cliente";
+    return false;
+  }
+
+  function insTotal($totalP,$totalA,$id){
+    mysqli_query($this->conexion,"UPDATE estudiantes SET totalP = ($totalP) WHERE id_alumno = $id");
+    mysqli_query($this->conexion,"UPDATE estudiantes SET totalF = ($totalA) WHERE id_alumno = $id");
+    if(empty($error)){
+      return true;
+    }
+    echo "Error al insertar cliente";
+    return false;
+  }
+
+
   function cerrar(){
     mysqli_close($this->conexion);
   }
