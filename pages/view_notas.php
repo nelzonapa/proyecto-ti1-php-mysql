@@ -9,7 +9,7 @@
 
 <h2 class="titulo-notas">Estudiantes Registrados</h2>
 <h3>Asignatura: <?php echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../resources/pdf_de_prueba.pdf" download>Descargar Registro</a> </button>
+<button class="btn-descargar"><a href="logic/registroNotas.php" target="_blank" >Descargar Registro</a> </button>
   <div class="table-container-notas">
     <table id="tablaUsuarios" class="tabla-notas">
       <thead>

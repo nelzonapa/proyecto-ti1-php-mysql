@@ -1,3 +1,5 @@
+<?php include('../../templates/header.php'); ?>
+
 <?php
     class BaseDatos{
         public static $instancia = null;
@@ -70,4 +72,6 @@
     <div id="chartContainer" style="height: 370px; width: 800;"></div>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </body>
-    </html>                              
+    </html>                     
+    
+    <?php include('../../templates/footer.php'); ?>

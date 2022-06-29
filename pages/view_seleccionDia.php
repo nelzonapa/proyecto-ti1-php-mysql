@@ -12,7 +12,7 @@
         <button id="boton7" name="botonDia" class="boton" type="submit" value="dia_7" >asistencia7</button>
         <button id="boton8" name="botonDia" class="boton" type="submit" value="dia_8" >asistencia8</button>
         <button id="boton9" name="botonDia" class="boton" type="submit" value="dia_9" >asistencia9</button>
-        <button id="boton10" name="botonDia" class="boton" type="submit" value="dia_19" >asistencia10</button>
+        <button id="boton10" name="botonDia" class="boton" type="submit" value="dia_10" >asistencia10</button>
         <button id="boton11" name="botonDia" class="boton" type="submit" value="dia_11" >asistencia11</button>
         <button id="boton12" name="botonDia" class="boton" type="submit" value="dia_12" >asistencia12</button>
         <button id="boton13" name="botonDia" class="boton" type="submit" value="dia_13" >asistencia13</button>
