@@ -41,7 +41,7 @@ class baseDEdatos{
     return false;
   }
 
-  function insTotal($totalP,$totalA,$id){
+  function insTotalEstudiante($totalP,$totalA,$id){
     mysqli_query($this->conexion,"UPDATE estudiantes SET totalP = ($totalP) WHERE id_alumno = $id");
     mysqli_query($this->conexion,"UPDATE estudiantes SET totalF = ($totalA) WHERE id_alumno = $id");
     if(empty($error)){
@@ -51,8 +51,48 @@ class baseDEdatos{
     return false;
   }
 
+  function insTotal($totalT,$id){
+    mysqli_query($this->conexion,"UPDATE estadistica_diaria SET Total = ($totalT) WHERE id = $id");
+    if(empty($error)){
+      return true;
+    }
+    echo "Error al insertar cliente";
+    return false;
+  }
+
+  function getTabla1() {
+    $result = mysqli_query($this->conexion,"SELECT * FROM estudiantes");
+    $error = mysqli_error($this->conexion);
+
+    if(empty($error)){
+      if(mysqli_num_rows($result)>0){
+        return $result;
+      }
+    }
+    else{
+      echo "Error al obtener tabla";
+    }
+    return null;
+  }
+
+  function getTabla2() {
+    $result = mysqli_query($this->conexion,"SELECT * FROM estadistica_diaria");
+    $error = mysqli_error($this->conexion);
+
+    if(empty($error)){
+      if(mysqli_num_rows($result)>0){
+        return $result;
+      }
+    }
+    else{
+      echo "Error al obtener tabla";
+    }
+    return null;
+  }
 
   function cerrar(){
     mysqli_close($this->conexion);
   }
 }
+
+?>

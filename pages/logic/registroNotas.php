@@ -66,6 +66,15 @@ foreach($listaDeEstudiantes as $estudiante){
   $pdf->Cell(20,6,utf8_decode($estudiante['nota_final']),1,1,'C',0);
 }
 
+$pdf->Ln(20);
+$pdf->Cell(0,0,"Datos del curso",0,0,'C',0);
+$pdf->Ln(12);
+$pdf->Cell(0,0,"Primera Fase",0,0,'C',0);
+$pdf->Ln(12);
+$pdf->Cell(0,0,"Segunda Fase",0,0,'C',0);
+$pdf->Ln(12);
+$pdf->Cell(0,0,"Tercera Fase",0,0,'C',0);
+
 $pdf->Output();
 
 ?>

@@ -3,13 +3,18 @@
 <?php include('logic/variables.php'); ?>
   
 <?php print_r($cursoElegido); ?>
+<?php
+            include("../pages/logic/baseDatos.php");
+            $Base = new baseDEdatos("localhost","root","","historico_estudiantes_epcc");
+            $Base->conectar();
+?>
 
 
-<h1>Tabla de notas</h1>
+<h1>Tabla de Asistencia</h1>
 
 <h2 class="titulo-notas">Estudiantes Registrados</h2>
 <h3>Asignatura: <?php echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../resources/pdf_de_prueba.pdf" download>Descargar Registro</a> </button>
+<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" target="_blank">Descargar Registro</a> </button>
   <div class="table-container-notas">
   <table id="tablaUsuarios" class="tabla-notas">
     <thead>
@@ -36,220 +41,32 @@
         <th>Dia 18</th>
         <th>Dia 19</th>
         <th>Dia 20</th>
-        <th>Total De Asistencia<th>
-        <th>Total de Faltas<th>
+        <th>Total De Asistencia</th>
+        <th>Total de Faltas</th>
       </tr>
     </thead>
-    <?php
-            include("../pages/logic/baseDatos.php");
-            $Base = new baseDEdatos("localhost","root","","historico_estudiantes_epcc");
-            $Base->conectar();
-    ?>
-    <tbody>
-      <?php foreach($listaDeEstudiantes as $estudiante){ ?>
+    
+    <tbody class="espacios-tabla">
         <tr class="espacios-tabla">
-          <td> <?php echo $estudiante['id_alumno']; ?> </td>
-          <?php $totalPresentes = 0;
-          $totalAusentes = 0;?>
-          <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
-          
-          <td> <?php echo $estudiante['dia_1']; ?> </td>
-            <?php
-            if($estudiante['dia_1']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_1']=='F'){
-                $totalAusentes++;
+            <?php foreach($listaDeEstudiantes as $estudiante){ ?>
+            <td> <?php echo $estudiante['id_alumno']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <?php 
+            for($i = 1; $i<=20; $i++){
+                echo "<td>".$estudiante["dia_$i"]."</td>";  
             }
             ?>
-          <td> <?php echo $estudiante['dia_2']; ?> </td>
-            <?php
-            if($estudiante['dia_2']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_2']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_3']; ?> </td>
-            <?php
-            if($estudiante['dia_3']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_3']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_4']; ?> </td>
-            <?php
-            if($estudiante['dia_4']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_4']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-
-          <td> <?php echo $estudiante['dia_5']; ?> </td>
-            <?php
-            if($estudiante['dia_5']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_5']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_6']; ?> </td>
-            <?php
-            if($estudiante['dia_6']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_6']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_7']; ?> </td>
-            <?php
-            if($estudiante['dia_7']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_7']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_8']; ?> </td>
-            <?php
-            if($estudiante['dia_8']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_8']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_9']; ?> </td>
-            <?php
-            if($estudiante['dia_9']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_9']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_10']; ?> </td>
-            <?php
-            if($estudiante['dia_10']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_10']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_11']; ?> </td>
-            <?php
-            if($estudiante['dia_11']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_11']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_12']; ?> </td>
-            <?php
-            if($estudiante['dia_12']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_12']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_13']; ?> </td>
-            <?php
-            if($estudiante['dia_13']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_13']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_14']; ?> </td>
-            <?php
-            if($estudiante['dia_14']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_14']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_15']; ?> </td>
-            <?php
-            if($estudiante['dia_15']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_15']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_16']; ?> </td>
-            <?php
-            if($estudiante['dia_16']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_16']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_17']; ?> </td>
-            <?php
-            if($estudiante['dia_17']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_17']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_18']; ?> </td>
-            <?php
-            if($estudiante['dia_18']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_18']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_19']; ?> </td>
-            <?php
-            if($estudiante['dia_19']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_19']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-          <td> <?php echo $estudiante['dia_20']; ?> </td>
-            <?php
-            if($estudiante['dia_20']=='P'){
-                $totalPresentes++;
-            }
-            if($estudiante['dia_20']=='F'){
-                $totalAusentes++;
-            }
-            ?>
-        <?php          
-            $Base->insTotal($totalPresentes,$totalAusentes,$estudiante['id_alumno']);
-        ?>
-          <td> <?php echo $estudiante['totalP']; ?> </td>
-
-          <td> <?php echo $estudiante['totalF']; ?> </td>
-
-
+            
+            <td> <?php echo $estudiante['totalP']; ?> </td>
+            <td> <?php echo $estudiante['totalF']; ?> </td>
         </tr>
-      <?php 
-        } 
-      ?>
+
+    <?php } ?>
+
     </tbody>
-    <?php $Base->cerrar(); ?>
+
 </table>    
-<table id="tablaUsuarios" class="tabla-notas">
+<table class="tabla-asistencias">
     <thead>
       <tr>
         <th>ID</th>
@@ -277,39 +94,23 @@
         <th>Total<th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="espacios-tabla">
       <?php foreach($listaDecondiciones as $estudiante){ ?>
         <tr class="espacios-tabla">
           <td> <?php echo $estudiante['id']; ?> </td>
           <td class="names"> <?php echo $estudiante['condicion']; ?> </td>
-          <td> <?php echo $estudiante['dia_1']; ?> </td>
-          <td> <?php echo $estudiante['dia_2']; ?> </td>
-          <td> <?php echo $estudiante['dia_3']; ?> </td>
-          <td> <?php echo $estudiante['dia_4']; ?> </td>
-          <td> <?php echo $estudiante['dia_5']; ?> </td>
-          <td> <?php echo $estudiante['dia_6']; ?> </td>
-          <td> <?php echo $estudiante['dia_7']; ?> </td>
-          <td> <?php echo $estudiante['dia_8']; ?> </td>
-          <td> <?php echo $estudiante['dia_9']; ?> </td>
-          <td> <?php echo $estudiante['dia_10']; ?> </td>
-          <td> <?php echo $estudiante['dia_11']; ?> </td>
-          <td> <?php echo $estudiante['dia_12']; ?> </td>
-          <td> <?php echo $estudiante['dia_13']; ?> </td>
-          <td> <?php echo $estudiante['dia_14']; ?> </td>
-          <td> <?php echo $estudiante['dia_15']; ?> </td>
-          <td> <?php echo $estudiante['dia_16']; ?> </td>
-          <td> <?php echo $estudiante['dia_17']; ?> </td>
-          <td> <?php echo $estudiante['dia_18']; ?> </td>
-          <td> <?php echo $estudiante['dia_19']; ?> </td>
-          <td> <?php echo $estudiante['dia_20']; ?> </td>
+          <?php 
+            for($i = 1; $i<=20; $i++){
+                echo "<td>".$estudiante["dia_$i"]."</td>";  
+            }
+          ?>
           <td> <?php echo $estudiante['Total']; ?> </td>
-
-
-
+          
         </tr>
       <?php 
         } 
       ?>
+    <?php $Base->cerrar(); ?>
     </tbody>  
   </table>
   </div>
