@@ -14,7 +14,7 @@
 
 <h2 class="titulo-notas">Estudiantes Registrados</h2>
 <h3>Asignatura: <?php echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" target="_blank">Descargar Registro</a> </button>
+<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
   <div class="table-container-notas">
   <table id="tablaUsuarios" class="tabla-notas">
     <thead>
@@ -114,5 +114,7 @@
     </tbody>  
   </table>
   </div>
+  <button id="botonRegresar" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">Volver</button>
+
 
 <?php include('../templates/footer.php'); ?>

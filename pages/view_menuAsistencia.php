@@ -6,8 +6,6 @@
 <button id="botonMenu" class="boton" type="button" onclick="location.href='view_miniMenu.php'">Estadisticas</button>
 
 
-<button id="botonRegresar" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">Volver</button>
-
     
 
 <?php include('../templates/footer.php'); ?>

@@ -462,7 +462,8 @@
         </tbody>
       </table>
       <div class="btn">
-       	<button id="boton2" class="boton" type="button" onclick="location.href='view_seleccionDia.php'">ENVIAR ASISTENCIA</button>
+       	<button id="boton2" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">ENVIAR ASISTENCIA</button>
+        <button id="botonRegresar" class="boton" type="button" onclick="location.href='view_seleccionDia.php'">Volver a seleccionar Dia</button>
       </div>
     </section>
 

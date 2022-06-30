@@ -13,25 +13,16 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $dia = $_POST["botonDia"];
+        $dia = $_POST["botonTotal"];
         echo "<label id='dia' class='columna'>".$dia."</label>";
     }
 
     $conexionDB = BaseDatos::crearInstancia();
 
-    $sql = "SELECT * FROM estudiantes";
-    $consulta = $conexionDB->prepare($sql);
-    $consulta->execute();
-    $listaDeEstudiantes = $consulta->fetchAll();
 
-    $sql1="SELECT COUNT($dia) as 'presentes'
-        FROM estudiantes
-        WHERE $dia='P'
-        ";
-    $sql2="SELECT COUNT($dia) as 'faltantes'
-        FROM estudiantes
-        WHERE $dia='F'
-        ";
+    $sql1="SELECT Total as 'presentes' FROM `estadistica_diaria` WHERE id=1";
+    $sql2="SELECT Total as 'faltantes' FROM `estadistica_diaria` WHERE id=2";
+
     $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();
     $numpresentes = $consulta->fetchAll();
@@ -61,7 +52,7 @@
         animationEnabled: true,
         theme: "light2",
         title:{
-            text: "Asistentes y Faltantes del dia"
+            text: "Asistentes y Faltantes del Semestre"
         },
         axisY: {
             title: "Cantidad de Alumnos"
@@ -77,31 +68,10 @@
     </script>
     </head>
     <body>
+    <h2>Total de Asistencias/Faltas del semestre</h2>
     <button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
   <div class="table-container-notas">
-  <table id="tablaUsuarios" class="tabla-notas">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Apellidos y Nombres</th>
-        <?php echo "<th>".$dia."</th>";?>
-      </tr>
-    </thead>
-    
-    <tbody class="espacios-tabla">
-        <tr class="espacios-tabla">
-            <?php foreach($listaDeEstudiantes as $estudiante){ ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
-            <?php 
-                echo "<td>".$estudiante[$dia]."</td>";  
-            ?>
-        </tr>
 
-    <?php } ?>
-
-    </tbody>
-</table>
 <?php 
 $sql = "SELECT * FROM estadistica_diaria";
 $consulta = $conexionDB->prepare($sql);
@@ -123,9 +93,7 @@ $listaDecondiciones = $consulta->fetchAll();
           <td> <?php echo $estudiante['id']; ?> </td>
           <td class="names"> <?php echo $estudiante['condicion']; ?> </td>
           <?php 
-
-                echo "<td>".$estudiante[$dia]."</td>";  
-
+            echo "<td>".$estudiante[$dia]."</td>";  
           ?>
           
         </tr>
