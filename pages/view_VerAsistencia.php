@@ -1,19 +1,25 @@
-<?php include('../templates/header.php'); ?>
-<?php include('logic/notas.php') ?>
-<?php include('logic/variables.php'); ?>
-  
-<?php print_r($cursoElegido); ?>
-<?php
-            include("../pages/logic/baseDatos.php");
-            $Base = new baseDEdatos("localhost","root","","historico_estudiantes_epcc");
-            $Base->conectar();
-?>
+<?php include('../templates/header.php'); 
+include_once '../config/db.php';
+$conexionDB = BaseDatos::crearInstancia();?>
 
+<?php //print_r($cursoElegido); ?>
+<?php
+//------------------- lista de estudaintes y sus notas ---------------
+$sql = "SELECT * FROM estudiantes";
+$consulta = $conexionDB->prepare($sql);
+$consulta->execute();
+$listaDeEstudiantes = $consulta->fetchAll();
+//------------------- lista de estudaintes y sus notas ---------------ojoooooooo
+$sql = "SELECT * FROM estadistica_diaria";
+$consulta = $conexionDB->prepare($sql);
+$consulta->execute();
+$listaDecondiciones = $consulta->fetchAll();
+?>
 
 <h1>Tabla de Asistencia</h1>
 
 <h2 class="titulo-notas">Estudiantes Registrados</h2>
-<h3>Asignatura: <?php echo $asignatura; ?></h3>
+<h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
 <button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
   <div class="table-container-notas">
   <table id="tablaUsuarios" class="tabla-notas">
@@ -110,7 +116,6 @@
       <?php 
         } 
       ?>
-    <?php $Base->cerrar(); ?>
     </tbody>  
   </table>
   </div>

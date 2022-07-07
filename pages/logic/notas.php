@@ -61,17 +61,18 @@ $consulta8->execute();
 $notaPromedio = $consulta8->fetchAll();
 $notaProm = $notaPromedio[0]['nota_Prom'];
 
+
+$sql9 = "SELECT "
 // ----------------- Estudiantes con probabilidad de 
-$sql9 = "SELECT nombres_apellidos,continua_1,parcial_1 
-FROM estudiantes";
-$consulta9 = $conexionDB->prepare($sql9);
-$consulta9->execute();
-$conjuntoDeNotas = $consulta9->fetchAll();
-foreach ($conjuntoDeNotas as $i) {
-  $i["continua_1"]*0.2;
-  $i["parcial_1"]*0.1;
-  
-}
+// $sql9 = "SELECT nombres_apellidos,continua_1,parcial_1 
+// FROM estudiantes";
+// $consulta9 = $conexionDB->prepare($sql9);
+// $consulta9->execute();
+// $conjuntoDeNotas = $consulta9->fetchAll();
+// foreach ($conjuntoDeNotas as $i) {
+//   $i["continua_1"]*0.2;
+//   $i["parcial_1"]*0.1;
+// }
 // print_r($conjuntoDeNotas);
 
 // print_r($cantDesap);

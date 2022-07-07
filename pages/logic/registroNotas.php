@@ -9,6 +9,27 @@ $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeEstudiantes = $consulta->fetchAll();
 
+// ---------------- Numero de Desprobados ----------------------
+$sql2 = "SELECT COUNT(id_alumno) as 'CantDesaprobados'
+        FROM estudiantes WHERE nota_final<10.5";
+$consulta2 = $conexionDB->prepare($sql2);
+$consulta2->execute();
+$cantDesap = $consulta2->fetchAll();
+
+$numDesap = $cantDesap[0]['CantDesaprobados'];
+$porcentDesap = ($numDesap/40)*100;
+
+// ---------------- Numero de Aprobados ----------------------
+$sql3 = "SELECT COUNT(id_alumno) as 'CantAprobados'
+        FROM estudiantes WHERE nota_final>=10.5";
+$consulta3 = $conexionDB->prepare($sql3);
+$consulta3->execute();
+$cantApr = $consulta3->fetchAll();
+
+$numApr = $cantApr[0]['CantAprobados'];
+$porcentApr = ($numApr/40)*100;
+
+// ------------------------- PDF -------------------------------------
 class PDF extends FPDF
 {
 // Cabecera de página
@@ -69,6 +90,16 @@ foreach($listaDeEstudiantes as $estudiante){
 $pdf->Ln(20);
 $pdf->Cell(0,0,"Datos del curso",0,0,'C',0);
 $pdf->Ln(12);
+$pdf->setX(35);
+$pdf->Cell(90,6,utf8_decode("Estudiantes Aprobados"),1,0,'C',0);
+$pdf->Cell(12,6,utf8_decode($numApr),1,0,'C',0);
+$pdf->Cell(12,6,utf8_decode($porcentApr. "%"),1,1,'C',0);
+$pdf->setX(35);
+$pdf->Cell(90,6,utf8_decode("Estudiantes Desaprobados"),1,0,'C',0);
+$pdf->Cell(12,6,utf8_decode($numDesap),1,0,'C',0);
+$pdf->Cell(12,6,utf8_decode($porcentDesap. "%"),1,1,'C',0);
+$pdf->Ln(12);
+$pdf->setX(35);
 $pdf->Cell(0,0,"Primera Fase",0,0,'C',0);
 $pdf->Ln(12);
 $pdf->Cell(0,0,"Segunda Fase",0,0,'C',0);

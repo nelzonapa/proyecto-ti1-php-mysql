@@ -2,7 +2,7 @@
 include("BaseDatos.php");
 include("../view_asistencia.php");
 
-$BaseDatos = new baseDEdatos("localhost","root","","historico_estudiantes_epcc");
+$BaseDatos = new baseDEdatos("localhost","root","","nelzon");
 $BaseDatos->conectar();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){

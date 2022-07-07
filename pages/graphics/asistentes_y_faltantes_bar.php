@@ -5,7 +5,7 @@
         public static function crearInstancia(){
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-            self::$instancia = new PDO('mysql:host=localhost;dbname=historico_estudiantes_epcc','root','',$opciones);
+            self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
             echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
@@ -61,7 +61,7 @@
         animationEnabled: true,
         theme: "light2",
         title:{
-            text: "Asistentes y Faltantes del dia"
+            text: "Asistentes y Faltantes del dia 1"
         },
         axisY: {
             title: "Cantidad de Alumnos"

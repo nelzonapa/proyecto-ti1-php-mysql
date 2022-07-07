@@ -27,7 +27,7 @@
     </form>
 
 <h2>Estadistica por Alumnos segun su ID</h2>
-    <form action="view_asistencia.php" method="post">
+    <form action="graphics/asist_por_alumno.php" method="post">
       
         <button id="bboton1" name="botonAlumno" class="boton" type="submit" value="1" >1</button>
         <button id="bboton2" name="botonAlumno" class="boton" type="submit" value="2" >2</button>
@@ -76,6 +76,10 @@
 <form action="graphics/total_asis.php" method="post">
     <button id="botonTotal" name="botonTotal" class="boton" type="submit" value="Total" >Total de Asistentes/Ausentes del Semestre</button>
 </form>
+<form action="graphics/abandonos.php" method="post">
+    <button id="botonT" name="botonT" class="boton" type="submit" value="Total" >Presentes y Abandonos</button>
+</form>
+
 
 <button id="botonRegresar" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">Volver</button>
 
