@@ -1,3 +1,5 @@
+<!-- /* Including the view_asistencia_header.php file. */ -->
+<?php include('../../templates/view_asistencia_header_graficos.php'); ?>
 
 <?php
     class BaseDatos{
@@ -6,7 +8,7 @@
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
             self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
-            echo "Conexion satisfactoria a la Base de Datos ...";
+            //echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
         }
@@ -14,7 +16,7 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dia = $_POST["botonTotal"];
-        echo "<label id='dia' class='columna'>".$dia."</label>";
+        //echo "<label id='dia' class='columna'>".$dia."</label>";
     }
 
     $conexionDB = BaseDatos::crearInstancia();
@@ -36,49 +38,20 @@
     $dato2=$numfaltantes[0]['faltantes'];
     // print_r($dato2);
 
-    $dataPoints = array( 
-        array("y" => $dato, "label" => "Presentes" ),
-        array("y" => $dato2, "label" => "Faltantes" ),
-    );
-
+    $sql = "SELECT * FROM estadistica_diaria";
+    $consulta = $conexionDB->prepare($sql);
+    $consulta->execute();
+    $columnas = $consulta->fetchAll();
     ?>
-    <!DOCTYPE HTML>
-    <html>
-    <head>
-    <script>
-    window.onload = function() {
-      
-    var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light2",
-        title:{
-            text: "Asistentes y Faltantes"
-        },
-        axisY: {
-            title: "Cantidad de Alumnos"
-        },
-        data: [{
-            type: "column",
-            yValueFormatString: "#,##0.## alumnos",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-        }]
-    });
-    chart.render();
-    }
-    </script>
-    </head>
-    <body>
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+  <section class="all">
     <h2>Total de Asistencias/Faltas del semestre</h2>
-    <button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
-  <div class="table-container-notas">
+    <h3>Asignatura: Trabajo Interdisciplinar <?php //echo $asignatura; ?></h3>
 
-<?php 
-$sql = "SELECT * FROM estadistica_diaria";
-$consulta = $conexionDB->prepare($sql);
-$consulta->execute();
-$listaDecondiciones = $consulta->fetchAll();
-?>
-  <table id="tablaUsuarios" class="tabla-notas">
+    <button class="btn_pdf"><a class="a_name" href="../logic/DocTotal.php" >Descargar Registro</a> </button>
+  <div class="table-container-notas">
+  <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
@@ -88,12 +61,12 @@ $listaDecondiciones = $consulta->fetchAll();
     </thead>
     
     <tbody class="espacios-tabla">
-      <?php foreach($listaDecondiciones as $estudiante){ ?>
+      <?php foreach($columnas as $columna){ ?>
         <tr class="espacios-tabla">
-          <td> <?php echo $estudiante['id']; ?> </td>
-          <td class="names"> <?php echo $estudiante['condicion']; ?> </td>
+          <td> <?php echo $columna['id']; ?> </td>
+          <td class="names"> <?php echo $columna['condicion']; ?> </td>
           <?php 
-            echo "<td>".$estudiante[$dia]."</td>";  
+            echo "<td>".$columna[$dia]."</td>";  
           ?>
           
         </tr>
@@ -103,12 +76,53 @@ $listaDecondiciones = $consulta->fetchAll();
 
     </tbody>
 </table>
+</div>
     <!--Recien empieza-->
-    <h2>Grafica</h2>
-    <div id="chartContainer" style="height: 370px; width: 800;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <button id="botonRegresar" class="boton" type="button" onclick="location.href='../view_estadisticaMenu.php'">Volver</button>
+    <br><br>
+    <h2 class="centrar">Grafica</h2>
+    <div class="graficos">
+            <canvas id="myChart" width="130" height="80"></canvas>
+            <button onclick="Descargar()">Descargar</button>
+        </div>
     </body>
+    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_Est_general.php'">Volver</button>
+    </section>
+
+        <script>
+const ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Presentes','Faltas'],
+    datasets: [{
+      label: 'Total',
+      backgroundColor: [
+        "rgb(0, 150, 254)",
+        "rgb(150, 100, 50)"      ],
+      data: [<?php echo $dato.",".$dato2 ?>],
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+function Descargar(){
+        const imageLink = document.createElement('a');
+        const canvas = document.getElementById('myChart');
+        imageLink.download = 'Total.png';
+        imageLink.href = canvas.toDataURL('image/png');
+        imageLink.click();
+
+        console.log(imageLink);
+    };
+    </script>
     </html>
 
 

@@ -1,5 +1,5 @@
 <?php
-require('../../libs/fpdf/fpdf.php');
+require('../../libs/fpdf/fpdf.php'); 
 include_once('../../config/db.php');
 
 $conexionDB = BaseDatos::crearInstancia();
@@ -44,7 +44,8 @@ $pdf->Ln(12);
 $pdf->SetX(12);
 $pdf->SetFillColor(14,139,246);
 $pdf->Cell(8,7,"ID",1,0,'C',0);
-$pdf->Cell(80,7,"Estudiante",1,0,'C',0);
+$pdf->Cell(40,7,"Apellidos",1,0,'C',0);
+$pdf->Cell(42,7,"Nombres",1,0,'C',0);
 $pdf->Cell(13,7,"Dia 1",1,0,'C',0);
 $pdf->Cell(13,7,"Dia 2",1,0,'C',0);
 $pdf->Cell(13,7,"Dia 3",1,0,'C',0);
@@ -71,8 +72,9 @@ $pdf->SetFillColor(255,255,255);//color de fondo
 $pdf->SetDrawColor(51,51,51);//color de linea
 foreach($listaDeEstudiantes as $estudiante){
   $pdf->setX(12);
-  $pdf->Cell(8,6,utf8_decode($estudiante['id_alumno']),1,0,'C',0);
-  $pdf->Cell(80,6,utf8_decode($estudiante['nombres_apellidos']),1,0,'C',0);
+  $pdf->Cell(8,6,utf8_decode($estudiante['id_est']),1,0,'C',0);
+  $pdf->Cell(40,6,utf8_decode($estudiante['apellidos']),1,0,'C',0);
+  $pdf->Cell(42,6,utf8_decode($estudiante['nombres']),1,0,'C',0);
   $pdf->Cell(13,6,utf8_decode($estudiante['dia_1']),1,0,'C',0);
   $pdf->Cell(13,6,utf8_decode($estudiante['dia_2']),1,0,'C',0);
   $pdf->Cell(13,6,utf8_decode($estudiante['dia_3']),1,0,'C',0);

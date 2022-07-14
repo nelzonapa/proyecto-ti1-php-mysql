@@ -1,3 +1,5 @@
+<!-- /* Including the view_asistencia_header.php file. */ -->
+<?php include('../../templates/view_asistencia_header_graficos.php'); ?>
 
 <?php
     class BaseDatos{
@@ -6,7 +8,7 @@
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
             self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
-            echo "Conexion satisfactoria a la Base de Datos ...";
+            //echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
         }
@@ -14,7 +16,7 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $dia = $_POST["botonDia"];
-        echo "<label id='dia' class='columna'>".$dia."</label>";
+        //echo "<label id='dia' class='columna'>".$dia."</label>";
     }
 
     $conexionDB = BaseDatos::crearInstancia();
@@ -45,45 +47,22 @@
     $dato2=$numfaltantes[0]['faltantes'];
     // print_r($dato2);
 
-    $dataPoints = array( 
-        array("y" => $dato, "label" => "Presentes" ),
-        array("y" => $dato2, "label" => "Faltantes" ),
-    );
-
     ?>
-    <!DOCTYPE HTML>
-    <html>
-    <head>
-    <script>
-    window.onload = function() {
-      
-    var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light2",
-        title:{
-            text: "Asistentes y Faltantes del dia 1"
-        },
-        axisY: {
-            title: "Cantidad de Alumnos"
-        },
-        data: [{
-            type: "column",
-            yValueFormatString: "#,##0.## alumnos",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-        }]
-    });
-    chart.render();
-    }
-    </script>
-    </head>
-    <body>
-    <button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <section class="all">
+    <h2>Asistencia por Dia</h2>
+    <h3>Asignatura: Trabajo Interdisciplinar <?php //echo $asignatura; ?></h3>
+    <br>
+    <form action="../logic/DocDia.php" method="post">
+<button id="bboton1" name="boton" class="btn_pdf" type="submit" value="<?php echo $dia ?>">Descargar Registro</button></form>
   <div class="table-container-notas">
-  <table id="tablaUsuarios" class="tabla-notas">
+  <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Apellidos y Nombres</th>
+        <th>Apellidos</th>
+        <th>Nombres</th>
         <?php echo "<th>".$dia."</th>";?>
       </tr>
     </thead>
@@ -91,8 +70,9 @@
     <tbody class="espacios-tabla">
         <tr class="espacios-tabla">
             <?php foreach($listaDeEstudiantes as $estudiante){ ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['id_est']; ?> </td>
+            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
             <?php 
                 echo "<td>".$estudiante[$dia]."</td>";  
             ?>
@@ -108,7 +88,8 @@ $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDecondiciones = $consulta->fetchAll();
 ?>
-  <table id="tablaUsuarios" class="tabla-notas">
+<br><br>
+  <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
@@ -136,11 +117,54 @@ $listaDecondiciones = $consulta->fetchAll();
     </tbody>
 </table>
     <!--Recien empieza-->
-    <h2>Grafica</h2>
-    <div id="chartContainer" style="height: 370px; width: 800;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <button id="botonRegresar" class="boton" type="button" onclick="location.href='../view_estadisticaMenu.php'">Volver</button>
+    <br><br>
+
+    <h2 class="centrar">Grafica</h2>
+
+    <div class="graficos">
+            <canvas id="myChart" width="130" height="80"></canvas>
+            <button onclick="Descargar()">Descargar</button>
+        </div>
+
+    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_estadistica_dia.php'">Volver</button>
     </body>
+
+    <script>
+const ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Presentes','Faltas'],
+    datasets: [{
+      label: 'Total',
+      backgroundColor: [
+        "rgb(0, 150, 254)",
+        "rgb(150, 100, 50)"      ],
+      data: [<?php echo $dato.",".$dato2 ?>],
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+function Descargar(){
+        const imageLink = document.createElement('a');
+        const canvas = document.getElementById('myChart');
+        imageLink.download = 'est_dia.png';
+        imageLink.href = canvas.toDataURL('image/png');
+        imageLink.click();
+
+        console.log(imageLink);
+    };
+    </script>
+
     </html>
 
 

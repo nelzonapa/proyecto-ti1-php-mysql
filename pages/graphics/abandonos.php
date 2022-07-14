@@ -1,3 +1,6 @@
+<!-- /* Including the view_asistencia_header.php file. */ -->
+<?php include('../../templates/view_asistencia_header_graficos.php'); ?>
+
 <?php
     class BaseDatos{
         public static $instancia = null;
@@ -5,7 +8,7 @@
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
             self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
-            echo "Conexion satisfactoria a la Base de Datos ...";
+            //echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
         }
@@ -33,24 +36,21 @@
     $totalAbandonos = 0;
     $mixto = 0;
 ?>
-<!DOCTYPE HTML>
-    <html>
-    <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 
-  </head>
+<section class="all">
+<h1>Estadistica General</h1>
 
-<h1>Tabla de Asistencia</h1>
-
-<h2 class="titulo-notas">Estudiantes Registrados</h2>
 <h3>Asignatura: Trabajo Interdisciplinar <?php //echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
+<button class="btn_pdf"  ><a class="a_name" href="../logic/DocAbandonos.php" >Descargar Registro</a> </button>
   <div class="table-container-notas">
-  <h2>Siempre Asistieron</h2>
-  <table id="tablaUsuarios" class="tabla-notas">
+  <h2 class="centrar">Siempre Asistieron</h2>
+  <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Apellidos y Nombres</th>
+        <th>Apellidos</th>
+        <th>Nombres</th>
         <th>Total De Asistencia</th>
         <th>Total de Faltas</th>
       </tr>
@@ -61,23 +61,24 @@
             <?php foreach($presentes as $estudiante){ 
               $totalAsistentes = $totalAsistentes + 1;
             ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['id_est']; ?> </td>
+            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
             <td> <?php echo $estudiante['totalP']; ?> </td>
             <td> <?php echo $estudiante['totalF']; ?> </td>
         </tr>
 
     <?php } ?>
-
     </tbody>
 </table>
-
-<h2>Abandonos</h2>
-<table class="tabla-asistencias">
+<br><br>
+<h2 class="centrar">Abandonos</h2>
+<table class="tabla">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Apellidos y Nombres</th>
+        <th>Apellidos</th>
+        <th>Nombres</th>
         <th>Total De Asistencia</th>
         <th>Total de Faltas</th>
       </tr>
@@ -88,8 +89,9 @@
             <?php foreach($abandonos as $estudiante){ 
               $totalAbandonos = $totalAbandonos + 1;
             ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['id_est']; ?> </td>
+            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
             <td> <?php echo $estudiante['totalP']; ?> </td>
             <td> <?php echo $estudiante['totalF']; ?> </td>
         </tr>
@@ -99,40 +101,64 @@
   </div>
 
   <?php
-      $mixto = 20 - $totalAsistentes - $totalAbandonos;
-      $dataPoints = array( 
-        array("y" => $totalAsistentes, "label" => "Siempre Presentes" ),
-        array("y" => $totalAbandonos, "label" => "Abandonos" ),
-        array("y" => $mixto, "label" => "Presentes/Faltas" ),
-    );
-
+      $mixto = 40 - $totalAsistentes - $totalAbandonos;
   ?>
 
   <!--Recien empieza-->
-    <h2>Grafica</h2>
-    <script>
-    window.onload = function() {
-      
-    var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light2",
-        title:{
-            text: "Asistentes y Faltantes"
-        },
-        axisY: {
-            title: "Cantidad de Alumnos"
-        },
-        data: [{
-            type: "column",
-            yValueFormatString: "#,##0.## alumnos",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-        }]
-    });
-    chart.render();
-    }
-    </script>
-    <div id="chartContainer" style="height: 370px; width: 800;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <button id="botonRegresar" class="boton" type="button" onclick="location.href='../view_estadisticaMenu.php'">Volver</button>
+  <br><br>
+    <h2 class="centrar">Grafica</h2>
+
+    <div class="graficos">
+            <canvas id="myChart" width="130" height="80"></canvas>
+            <button onclick="Descargar()">Descargar</button>
+    </div>
+
+    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_Est_general.php'">Volver</button>
+    </section>
     </body>
+
+    <script>
+const ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Siempre Asistio','Abandono','Pre./Falt.'],
+    datasets: [{
+      label: 'Cantidad de Estudiantes',
+      backgroundColor: [
+        "rgb(0, 150, 254)",
+        "rgb(150, 100, 50)",
+        "rgb(255, 50, 254)"
+      ],
+      data: [<?php echo $totalAsistentes.",".$totalAbandonos.",".$mixto ?>],
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
+function Descargar(){
+        const imageLink = document.createElement('a');
+        const canvas = document.getElementById('myChart');
+        imageLink.download = 'Abandono.png';
+        imageLink.href = canvas.toDataURL('image/png');
+        imageLink.click();
+
+        console.log(imageLink);
+    };
+    </script>
+
+
     </html>
+
+
+<!-- /* Including the view_asistencia_footer.php file. */ -->
+<?php include('../../templates/view_asistencia_footer.php'); ?>
+

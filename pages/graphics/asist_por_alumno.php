@@ -1,3 +1,5 @@
+<!-- /* Including the view_asistencia_header.php file. */ -->
+<?php include('../../templates/view_asistencia_header_graficos.php'); ?>
 
 <?php
     class BaseDatos{
@@ -20,24 +22,28 @@
     $conexionDB = BaseDatos::crearInstancia();
 
 
-    $sql1="SELECT * FROM `estudiantes` WHERE id_alumno=$id";
+    $sql1="SELECT * FROM `estudiantes` WHERE id_est=$id";
 
     $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();
     $numpresentes = $consulta->fetchAll();
     ?>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <section class="all">
 
     <h1>Asistencias y Faltas por Alumno</h1>
 
-<h2 class="titulo-notas">Estudiantes Registrados</h2>
-<h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
-  <div class="table-container-notas">
-  <table id="tablaUsuarios" class="tabla-notas">
+    <h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
+    <form action="../logic/DocAlumno.php" method="post">
+    <button id="bboton1" name="boton" class="btn_pdf" type="submit" value="<?php echo $id ?>">Descargar Registro</button></form>
+    <div class="table-container-notas">
+    <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Apellidos y Nombres</th>
+        <th>Apellidos</th>
+        <th>Nombres</th>
         <th>Dia 1</th>
         <th>Dia 2</th>
         <th>Dia 3</th>
@@ -66,8 +72,9 @@
     <tbody class="espacios-tabla">
         <tr class="espacios-tabla">
             <?php foreach($numpresentes as $estudiante){ ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['id_est']; ?> </td>
+            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
             <?php 
             for($i = 1; $i<=20; $i++){
                 echo "<td>".$estudiante["dia_$i"]."</td>";  
@@ -84,39 +91,56 @@
 
 </table>    
   </div>
-    <?php
-      $dataPoints = array( 
-        array("y" => $estudiante['totalP'], "label" => "Presentes" ),
-        array("y" => $estudiante['totalF'], "label" => "Faltas" ),
-    );
-
-  ?>
 
   <!--Recien empieza-->
-    <h2>Grafica</h2>
+  <br><br>
+    <h2 class="centrar">Grafica</h2>
+
+
+    <div class="graficos">
+            <canvas id="myChart" width="130" height="80"></canvas>
+            <button onclick="Descargar()">Download</button>
+        </div>
+
+    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_estadistica_alumno.php'">Volver</button>
+    
+</section>
+
     <script>
-    window.onload = function() {
-      
-    var chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: true,
-        theme: "light2",
-        title:{
-            text: "Asistencias y Faltas"
-        },
-        axisY: {
-            title: "Cantidad de Asistencia"
-        },
-        data: [{
-            type: "column",
-            yValueFormatString: "#,##0.## alumnos",
-            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-        }]
-    });
-    chart.render();
+const ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Presentes','Faltas'],
+    datasets: [{
+      label: 'Total',
+      backgroundColor: [
+        "rgb(0, 150, 254)",
+        "rgb(150, 100, 50)"      ],
+      data: [<?php echo $estudiante['totalP'].",".$estudiante['totalF'] ?>],
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
     }
+  }
+});
+
+function Descargar(){
+        const imageLink = document.createElement('a');
+        const canvas = document.getElementById('myChart');
+        imageLink.download = 'est_alumno.png';
+        imageLink.href = canvas.toDataURL('image/png');
+        imageLink.click();
+
+        console.log(imageLink);
+    };
     </script>
-    <div id="chartContainer" style="height: 370px; width: 800;"></div>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <button id="botonRegresar" class="boton" type="button" onclick="location.href='../view_estadisticaMenu.php'">Volver</button>
+
     </body>
     </html>

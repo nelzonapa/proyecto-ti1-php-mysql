@@ -1,4 +1,5 @@
-<?php include('../templates/header.php'); 
+
+<?php include('../templates/view_asistencia_header.php');
 include_once '../config/db.php';
 $conexionDB = BaseDatos::crearInstancia();?>
 
@@ -15,18 +16,18 @@ $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDecondiciones = $consulta->fetchAll();
 ?>
-
+<section class="all">
 <h1>Tabla de Asistencia</h1>
 
-<h2 class="titulo-notas">Estudiantes Registrados</h2>
 <h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
-<button class="btn-editar"><a href="../pages/logic/registroAsistencia.php" >Descargar Registro</a> </button>
+<button class="btn_pdf"><a class=a_name href="../pages/logic/registroAsistencia.php" target="_blank">Descargar Registro</a> </button>
   <div class="table-container-notas">
-  <table id="tablaUsuarios" class="tabla-notas">
+  <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Apellidos y Nombres</th>
+        <th>Apellidos</th>
+        <th>Nombres</th>
         <th>Dia 1</th>
         <th>Dia 2</th>
         <th>Dia 3</th>
@@ -55,8 +56,9 @@ $listaDecondiciones = $consulta->fetchAll();
     <tbody class="espacios-tabla">
         <tr class="espacios-tabla">
             <?php foreach($listaDeEstudiantes as $estudiante){ ?>
-            <td> <?php echo $estudiante['id_alumno']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres_apellidos']; ?> </td>
+            <td> <?php echo $estudiante['id_est']; ?> </td>
+            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
+            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
             <?php 
             for($i = 1; $i<=20; $i++){
                 echo "<td>".$estudiante["dia_$i"]."</td>";  
@@ -70,9 +72,9 @@ $listaDecondiciones = $consulta->fetchAll();
     <?php } ?>
 
     </tbody>
-
 </table>    
-<table class="tabla-asistencias">
+<br><br>
+<table class="tabla">
     <thead>
       <tr>
         <th>ID</th>
@@ -97,14 +99,14 @@ $listaDecondiciones = $consulta->fetchAll();
         <th>Dia 18</th>
         <th>Dia 19</th>
         <th>Dia 20</th>
-        <th>Total<th>
+        <th>Total</th>
       </tr>
     </thead>
-    <tbody class="espacios-tabla">
+    <tbody class="asdtabla">
       <?php foreach($listaDecondiciones as $estudiante){ ?>
         <tr class="espacios-tabla">
           <td> <?php echo $estudiante['id']; ?> </td>
-          <td class="names"> <?php echo $estudiante['condicion']; ?> </td>
+          <td> <?php echo $estudiante['condicion']; ?> </td>
           <?php 
             for($i = 1; $i<=20; $i++){
                 echo "<td>".$estudiante["dia_$i"]."</td>";  
@@ -119,7 +121,6 @@ $listaDecondiciones = $consulta->fetchAll();
     </tbody>  
   </table>
   </div>
-  <button id="botonRegresar" class="boton" type="button" onclick="location.href='view_menuAsistencia.php'">Volver</button>
+  <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='view_asistencia.php'">Volver</button>
 
-
-<?php include('../templates/footer.php'); ?>
+</section>

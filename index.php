@@ -1,9 +1,8 @@
-<!-- /* The PHP code that is used to check if the user is logged in or not. */ -->
 <?php
-session_start();
 include_once 'config/db.php';
+// /* The PHP code that is used to check if the user is logged in or not. */
+session_start();
 $conexionDB = BaseDatos::crearInstancia();
-
 
 $sql = "SELECT * FROM usuarios";
 //$sql2 = "INSERT INTO usuarios VALUES ('".$usuario."','".$clave. "')";
@@ -12,7 +11,6 @@ $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeUsuarios = $consulta->fetchAll();
 
-
 if($_POST){
   $mensaje = 'Usuario o clave incorrecta';
   // if($_POST['usuario']=='admin1' && $_POST['password']=='clave'){
@@ -25,19 +23,6 @@ if($_POST){
   }
 }
 
-if($_POST){
-  $mensaje = 'Usuario o clave incorrecta';
-  // if($_POST['usuario']=='admin1' && $_POST['password']=='clave'){
-  foreach($listaDeUsuarios as $user){
-    if($_POST['usuario']==$user['usuario'] && $_POST['password']==$user['clave']){
-      $_SESSION['usuario'] = $_POST['usuario'];
-      // echo "Login Correcto";
-      header('Location: pages/view_inicio.php');
-    }
-  }
-  
-  
-}
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +31,7 @@ if($_POST){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/login.css?20220504">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">

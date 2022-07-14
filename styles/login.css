@@ -11,7 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   /* background-image: url(pabellonCS.png); */
-  background: linear-gradient(150deg,#da5656, #7c0101);
+  background: linear-gradient(100deg,#a10d0d, #2c0000);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -44,7 +44,7 @@ body {
 .message button {
   padding: 1rem;
   font-weight: 400;
-  background-color: #003f88;
+  background-color: #fff;
   border-radius: 2rem;
   border: 2px solid transparent;
   outline: none;
@@ -52,12 +52,13 @@ body {
   font-size: .9rem;
   margin-top: 2rem;
   transition: all .3s ease-in;
-  color: #fff;
+  color: #a10d0d;
 }
 
 .message button:hover {
   background-color: transparent;
-  border: 2px solid #003f88;
+  border: 2px solid #fff;
+  color: #fff;
 }
 
 .message-contraste{
@@ -99,7 +100,7 @@ body {
 }
 
 .border-icon:hover {
-  background-color: #003f88;
+  background-color: #610000;
   cursor: pointer;
 }
 
@@ -141,7 +142,6 @@ body {
   transition-duration: 0.6s;
 }
 
-
 .sign-in {
   position: absolute;
   opacity: 0;
@@ -160,5 +160,5 @@ body {
 
 .input-form::placeholder{
   color: rgb(177, 177, 177);
-  font-style: italic;
+  font-style: normal;
 }

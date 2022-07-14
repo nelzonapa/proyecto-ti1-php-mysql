@@ -34,7 +34,7 @@ if(!is_null($listaDeEstudiantes)){
         $totalAusentes++;
       }
     }
-    $BaseDatos->insTotalEstudiante($totalPresentes,$totalAusentes,$estudiante['id_alumno']);
+    $BaseDatos->insTotalEstudiante($totalPresentes,$totalAusentes,$estudiante['id_est']);
     $totalPresentes = 0;
     $totalAusentes = 0;
   }

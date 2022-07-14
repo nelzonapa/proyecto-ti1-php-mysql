@@ -100,7 +100,7 @@ function Agregar(){
   
     //alert(dia);
     //alert("La asistencia fue tomada con exito");
-    ajax.open("POST","logic/insertar.php");
+    ajax.open("POST","../pages/logic/insertar.php");
     ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     ajax.send("&dia="+dia+
     "&asist1=" + asistencia01 + 
