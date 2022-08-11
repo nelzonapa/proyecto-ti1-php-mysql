@@ -1,5 +1,10 @@
-<!-- /* Including the header.php file. */ -->
-<?php include('../templates/header.php'); ?>
+
+<?php 
+session_start();
+if(!isset($_SESSION['usuario'])){
+  header('Location: ../index.php');
+}
+?>
 <?php include('logic/estudiantes.php'); ?>
 
 <!DOCTYPE html>
@@ -8,7 +13,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/nav.css">
+  <link rel="stylesheet" href="../styles/nav.css?31">
+  <link rel="stylesheet" href="../styles/estudiantes.css">
   <title>Inicio</title>
 </head>
 <body>
@@ -44,12 +50,6 @@
           <a href="view_cursos.php">
             <span class="icon"><ion-icon name="library-outline"></ion-icon></span>
             <span class="title">Cursos</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="view_trabinter.php">
-            <span class="icon"><ion-icon name="pencil-outline"></ion-icon></span>
-            <span class="title">Notas</span>
           </a>
         </li>
         <li class="list">
@@ -128,8 +128,8 @@
         </div>
       </div>
 
-      <div class="estudiantes_table">
-        <table id="tablaUsuarios" class="tabla-notas">
+      <div class="container_tabla">
+        <table id="tablaEstudiantes" class="tabla-estudiantes">
           <thead>
             <tr>
               <th>ID</th>
@@ -142,10 +142,10 @@
           <tbody>
             <?php foreach($listaDeEstudiantes as $estudiante){ ?>
               <tr class="espacios-tabla">
-                <td> <?php echo $estudiante['id_est']; ?> </td>
-                <td> <?php echo $estudiante['apellidos']; ?> </td>
-                <td> <?php echo $estudiante['nombres']; ?> </td>
-                <td> III </td>
+                <td class="id"> <?php echo $estudiante['id_est']; ?> </td>
+                <td class="apellidos"> <?php echo $estudiante['apellidos']; ?> </td>
+                <td class="nombres"> <?php echo $estudiante['nombres']; ?> </td>
+                <td class="semestre"> III </td>
                 <td class="btns">
                   <form method="post" action="view_info_alumno.php" >
                     <input type="hidden" name="id" value="ver_<?php echo $estudiante['id_est']; ?>">
@@ -171,6 +171,3 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-<!-- /* Including the footer.php file. */ -->
-<?php include('../templates/footer.php'); ?>

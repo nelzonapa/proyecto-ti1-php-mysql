@@ -1,5 +1,21 @@
-<!-- /* Including the header.php file. */ -->
-<?php include('../templates/header.php'); ?>
+<?php 
+session_start();
+if(!isset($_SESSION['usuario'])){
+  header('Location: ../index.php');
+}
+include_once("../config/db.php");
+date_default_timezone_set('America/Lima');
+$conexionDB = BaseDatos::crearInstancia();
+$res = myquery($conexionDB,"SELECT COUNT(id_est) as 'cantidadEst' FROM estudiantes");
+$numEstudiantes = $res[0]['cantidadEst'];
+$res = myquery($conexionDB,"SELECT COUNT(id_curso) as 'cantidadCursos' FROM cursos");
+$numCursos = $res[0]['cantidadCursos'];
+$res = myquery($conexionDB,"SELECT COUNT(usuario) as 'cantidadUsua' FROM usuarios");
+$numUsuarios = $res[0]['cantidadUsua'];
+$fecha = date('l jS \of F Y h:i:s A');
+// $separarFecha = 
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +23,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/nav.css">
+  <link rel="stylesheet" href="../styles/nav.css?11">
   <title>Inicio</title>
 </head>
 <body>
@@ -43,12 +59,6 @@
           <a href="view_cursos.php">
             <span class="icon"><ion-icon name="library-outline"></ion-icon></span>
             <span class="title">Cursos</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="view_trabinter.php">
-            <span class="icon"><ion-icon name="pencil-outline"></ion-icon></span>
-            <span class="title">Notas</span>
           </a>
         </li>
         <li class="list">
@@ -91,7 +101,7 @@
       <div class="cardBox">
         <div class="card">
           <div>
-            <div class="numbers">226</div>
+            <div class="numbers"><?php echo $numEstudiantes; ?></div>
             <div class="cardName">Estudiantes</div>
           </div>
           <div class="iconBx">
@@ -100,7 +110,7 @@
         </div>
         <div class="card">
           <div>
-            <div class="numbers">7</div>
+            <div class="numbers"><?php echo $numCursos; ?></div>
             <div class="cardName">Asignaturas</div>
           </div>
           <div class="iconBx">
@@ -109,7 +119,7 @@
         </div>
         <div class="card">
           <div>
-            <div class="numbers">2</div>
+            <div class="numbers"><?php echo $numUsuarios; ?></div>
             <div class="cardName">Usuarios</div>
           </div>
           <div class="iconBx">
@@ -118,17 +128,20 @@
         </div>
         <div class="card">
           <div>
-            <div class="numbers">05</div>
-            <div class="cardName">Julio 2022</div>
+            <div class="numbers"><?php echo date('jS'); ?></div>
+            <div class="cardName"><?php echo date('l F Y'); ?></div>
           </div>
           <div class="iconBx">
             <ion-icon name="calendar-outline"></ion-icon>
           </div>
         </div>
       </div>
-      
-      
 
+
+      <div id="img1" class="img-container">
+        <img src="../img/img2.jpg" class="img_inicio">
+      </div>
+  
     </div>
   </div>
   
@@ -138,6 +151,3 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-<!-- /* Including the footer.php file. */ -->
-<?php include('../templates/footer.php'); ?>

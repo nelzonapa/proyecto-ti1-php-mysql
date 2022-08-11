@@ -1,9 +1,8 @@
-
-<?php include('../templates/view_asistencia_header.php');
+<?php 
+include('../templates/view_asistencia_header.php');
 include_once '../config/db.php';
 $conexionDB = BaseDatos::crearInstancia();?>
 
-<?php //print_r($cursoElegido); ?>
 <?php
 //------------------- lista de estudaintes y sus notas ---------------
 $sql = "SELECT * FROM estudiantes";
@@ -124,3 +123,13 @@ $listaDecondiciones = $consulta->fetchAll();
   <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='view_asistencia.php'">Volver</button>
 
 </section>
+
+
+</div>
+  </div>
+  <script src="../js/nav.js"></script>
+  
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

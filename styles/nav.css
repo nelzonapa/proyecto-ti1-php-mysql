@@ -221,7 +221,7 @@ body{
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 7px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 7px 25px rgba(145, 3, 3, 0.75);
 }
 .cardBox .card .numbers{
   position: relative;
@@ -329,6 +329,18 @@ body{
   .user-container{
     width: 40px;
   }
+}
+
+.img-container {
+  width: 600px;
+  height: 50%;
+  /* background-color: aquamarine; */
+  padding: 20px;
+}
+
+img.img_inicio{
+  max-width: 100%;
+  max-height: 100%;
 }
 
 

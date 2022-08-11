@@ -1,15 +1,27 @@
 <?php
 include_once 'config/db.php';
-// /* The PHP code that is used to check if the user is logged in or not. */
+
 session_start();
 $conexionDB = BaseDatos::crearInstancia();
 
+$nombre = isset($_POST['nombreRe']) ? $_POST['nombreRe'] : '';
+$email = isset($_POST['nombreRe']) ? $_POST['emailRe'] : '';
+$password = isset($_POST['nombreRe']) ? $_POST['passwordRe'] : '';
+
 $sql = "SELECT * FROM usuarios";
-//$sql2 = "INSERT INTO usuarios VALUES ('".$usuario."','".$clave. "')";
+$sql2 = "INSERT INTO usuarios (`usuario`, `email`, `clave`) VALUES ('$nombre','$email','$password')";
 
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeUsuarios = $consulta->fetchAll();
+
+if(isset($_POST['nombreRe'])){
+  $consulta = $conexionDB->prepare($sql2);
+  $consulta->execute();
+  $_SESSION['usuario'] = $_POST['nombreRe'];
+  echo "<script>alert('Usuario Registrado');</script>";
+  header('Location: pages/view_inicio.php');
+}
 
 if($_POST){
   $mensaje = 'Usuario o clave incorrecta';
@@ -17,6 +29,7 @@ if($_POST){
   foreach($listaDeUsuarios as $user){
     if($_POST['usuario']==$user['usuario'] && $_POST['password']==$user['clave']){
       $_SESSION['usuario'] = $_POST['usuario'];
+      $_SESSION['password'] = $_POST['password'];
       // echo "Login Correcto";
       header('Location: pages/view_inicio.php');
     }
@@ -36,7 +49,6 @@ if($_POST){
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <!-- <link href='https://css.gg/organisation.css' rel='stylesheet'> -->
     <title>Bienvenido a Student System</title>
   </head>
 
@@ -49,7 +61,7 @@ if($_POST){
           <button class="sign-up-btn">Iniciar Sesion</button>
         </div>
       </div>
-      <form class="formulario">
+      <form class="formulario" method="post">
         <h2 class="create-account">Crear una cuenta</h2>
         <div class="iconos">
           <div class="border-icon">
@@ -60,9 +72,9 @@ if($_POST){
           </div>
         </div>
         <p class="cuenta-nueva">Crear una cuenta</p>
-        <input class="input-form" type="text" name="nombre" id="nombre" placeholder="Nombre">
-        <input class="input-form" type="email" name="email" id="email" placeholder="Email">
-        <input class="input-form" type="password" name="password" id="password" placeholder="Contraseña">
+        <input class="input-form" type="text" name="nombreRe" id="nombre" placeholder="Nombre">
+        <input class="input-form" type="email" name="emailRe" id="email" placeholder="Email">
+        <input class="input-form" type="password" name="passwordRe" id="password" placeholder="Contraseña">
         <input type="submit" value="Registrarse">
       </form>
     </div>

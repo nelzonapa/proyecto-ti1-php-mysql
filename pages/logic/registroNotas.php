@@ -1,4 +1,5 @@
 <?php
+/*
 require('../../libs/fpdf/fpdf.php');
 include_once '../../config/db.php';
 
@@ -247,6 +248,7 @@ $pdf->Cell(20,7,"Nota Final",1,1,'C',0);
 $pdf->SetFillColor(255,255,255);//color de fondo
 $pdf->SetDrawColor(51,51,51);//color de linea
 $i=0;
+
 foreach($notas_TrabInter as $nota){
   $pdf->setX(12);
   $pdf->Cell(10,6,utf8_decode($nota['id_est']),1,0,'C',0);
@@ -421,5 +423,5 @@ foreach($peligro as $estudiante){
 }
 
 $pdf->Output();
-
+*/
 ?>

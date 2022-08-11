@@ -1,6 +1,6 @@
-<?php include('../templates/view_cursos_header.php'); ?>
+<?php 
 
-<?php
+include('../templates/view_cursos_header.php'); 
 include_once '../config/db.php';
 
 $conexionDB = BaseDatos::crearInstancia();

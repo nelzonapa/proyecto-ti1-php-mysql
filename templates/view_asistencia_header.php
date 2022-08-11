@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../styles/asistencia.css"> 
   <link rel="stylesheet" href="../styles/graficos.css">
   <link rel="stylesheet" href="../styles/tablas.css">
+  <link rel="stylesheet" href="../styles/seleccionDia.css">
   <title>Inicio</title>
 </head>
 <body>
@@ -46,12 +47,6 @@
           <a href="view_cursos.php">
             <span class="icon"><ion-icon name="library-outline"></ion-icon></span>
             <span class="title">Cursos</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="pages/view_notas.php">
-            <span class="icon"><ion-icon name="pencil-outline"></ion-icon></span>
-            <span class="title">Notas</span>
           </a>
         </li>
         <li class="list">

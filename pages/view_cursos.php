@@ -1,5 +1,11 @@
-<?php include('../templates/header.php'); ?>
-<?php include('logic/cursos.php') ?>
+<?php 
+session_start();
+if(!isset($_SESSION['usuario'])){
+  header('Location: ../index.php');
+}
+?>
+<?php include('logic/cursos.php'); ?>
+<?php include("controller_notas.php"); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,8 +13,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/nav.css">
-  <link rel="stylesheet" href="../styles/cursos.css">
+  <link rel="stylesheet" href="../styles/nav.css?33">
+  <link rel="stylesheet" href="../styles/cursos.css?33">
   <title>Cursos</title>
 </head>
 <body>
@@ -47,13 +53,7 @@
           </a>
         </li>
         <li class="list">
-          <a href="#">
-            <span class="icon"><ion-icon name="pencil-outline"></ion-icon></span>
-            <span class="title">Notas</span>
-          </a>
-        </li>
-        <li class="list">
-          <a href="#">
+          <a href="view_ajustes.php">
             <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
             <span class="title">Ajustes</span>
           </a>
@@ -82,7 +82,7 @@
         </div>
         <!-- Imagen de usuario -->
         <div class="user-container">
-          <span>Usuario1</span>
+          <span><?php echo $_SESSION['usuario']; ?></span>
           <div class="user">
             <img id="user" src="../img/user.jpg">
           </div>
@@ -90,37 +90,25 @@
       </div>
       <!-- cards cursos-->
       <div class="cardBox">
-        <form class="form_seleccionCurso" action="view_notas.php" method="post">
-          <?php foreach($listaCursos as $curso){ ?>  
-          <button class="card" name="botonCurso" value="<?php echo $curso['nombre_curso']; ?>">
-            <div>
-              <div class="numbers"><?php echo $curso['id_curso']; ?></div>
-              <div class="cardName"><?php echo $curso['nombre_curso']; ?></div>
+        <?php foreach($listaCursos as $curso){ ?> 
+          <form class="form_seleccionCurso" action="view_notas.php" method="post">
+            <div class="btnContainer">
+              <input type="hidden" name="idCurso" value="<?php echo $curso['id_curso']; ?>">
+              <button class="cardCurso" type="submit" name="botonCurso" value="<?php echo $curso['nombre_curso']; ?>">
+                <div>
+                  <div class="numbersCurso"><?php echo $curso['id_curso']; ?></div>
+                  <div class="cardNameCurso"><?php echo $curso['nombre_curso']; ?></div>
+                </div>
+                <!-- <div class="iconBx">
+                  <ion-icon name="people-outline"></ion-icon>
+                </div> -->
+              </button>
             </div>
-            <div class="iconBx">
-              <ion-icon name="people-outline"></ion-icon>
-            </div>
-          </button>
-          <?php 
-            } 
-          ?>
-        </form>
-    </div>
-    <!-- <div class="cardBox">
-        <?php// foreach($listaCursos as $curso){ ?>
-          <div class="card">
-            <div>
-              <div class="numbers"><?php //echo $curso['id_curso']; ?></div>
-              <div class="cardName"><?php //echo $curso['nombre_curso']; ?></div>
-            </div>
-            <div class="iconBx">
-              <ion-icon name="people-outline"></ion-icon>
-            </div>
-          </div>
+          </form>
         <?php 
-         // } 
+          } 
         ?>
-    </div>    -->
+    </div>
   </div>
   
   <script src="../js/nav.js"></script>
@@ -129,5 +117,3 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-<?php include('../templates/footer.php'); ?>

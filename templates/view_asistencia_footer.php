@@ -7,6 +7,3 @@
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-
-<!-- /* Including the footer.php file. */ -->
-<?php include('footer.php'); ?>

@@ -2,14 +2,13 @@
 include_once '../config/db.php';
 
 $conexionDB = BaseDatos::crearInstancia();
-$listaCursos = myquery($conexionDB,"SELECT id_curso,nombre_curso FROM cursos");
 
-$listaDeEstudiantes = myquery($conexionDB,"SELECT * FROM estudiantes");
+$listaCursos = myquery($conexionDB,"SELECT id_curso,nombre_curso FROM cursos");
 $listaDecondiciones = myquery($conexionDB,"SELECT * FROM estadistica_diaria");
 
-$apellidos_nombres_TrabInter = myquery($conexionDB,"SELECT apellidos,nombres FROM estudiantes");
-$notas_TrabInter = myquery($conexionDB,"SELECT * FROM notas");
 
+
+/*
 // ---------------- Numero de Aprobados (nota Continua 1) -------------------------
 $cantApr = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantAprobados' FROM notas WHERE continua_1>=10.5");
 $numAprc1 = $cantApr[0]['CantAprobados'];
@@ -18,6 +17,7 @@ $porcentApr_c1 = ($numAprc1/40)*100;
 $cantDesap = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantDesaprobados' FROM notas WHERE continua_1<10.5");
 $numDesapc1 = $cantDesap[0]['CantDesaprobados'];
 $porcentDesap_c1 = ($numDesapc1/40)*100;
+
 // ---------------- Numero de Aprobados (nota Parcial 1) -------------------------
 $cantApr = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantAprobados' FROM notas WHERE parcial_1>=10.5");
 $numAprp1 = $cantApr[0]['CantAprobados'];
@@ -26,6 +26,7 @@ $porcentApr_p1 = ($numAprp1/40)*100;
 $cantDesap = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantDesaprobados' FROM notas WHERE parcial_1<10.5");
 $numDesapp1 = $cantDesap[0]['CantDesaprobados'];
 $porcentDesap_p1 = ($numDesapp1/40)*100;
+*/
 // ---------------- Numero de Aprobados (nota Continua 2) -------------------------
 $cantApr = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantAprobados' FROM notas WHERE continua_2>=10.5");
 $numAprc2 = $cantApr[0]['CantAprobados'];
@@ -58,6 +59,8 @@ $porcentApr_p3 = ($numAprp3/40)*100;
 $cantDesap = myquery($conexionDB,"SELECT COUNT(id_est) as 'CantDesaprobados' FROM notas WHERE parcial_3<10.5");
 $numDesapp3 = $cantDesap[0]['CantDesaprobados'];
 $porcentDesap_p3 = ($numDesapp3/40)*100;
+
+
 
 $arrayTitulosNotas = array(
   1 => "Nota Parcial 1",
@@ -171,7 +174,6 @@ $promedioAula_notaContinua2 = myquery($conexionDB,"SELECT AVG(continua_2) as 'no
 $promedioAula_notaParcial2 = myquery($conexionDB,"SELECT AVG(parcial_2) as 'nota' FROM notas");
 $promedioAula_notaContinua3 = myquery($conexionDB,"SELECT AVG(continua_3) as 'nota' FROM notas");
 $promedioAula_notaParcial3 = myquery($conexionDB,"SELECT AVG(parcial_3) as 'nota' FROM notas");
-
 $promedioAula_notaFinal = myquery($conexionDB,"SELECT AVG(nota_final) as 'nota' FROM notas");
 
 $peligro = myquery($conexionDB, "SELECT notas.id_est, estudiantes.apellidos, estudiantes.nombres, notas.continua_1, notas.parcial_1, notas.continua_2, notas.parcial_2, notas.med_peligro as 'peligro'
@@ -184,7 +186,9 @@ $peligroActualizar = myquery($conexionDB, "UPDATE notas
                     INNER JOIN cursos
                     ON notas.id_est
                     SET notas.med_peligro='M' -- MALO
-                    WHERE notas.id_est=1 AND cursos.id_curso=1 AND ((notas.continua_1*cursos.porcentaje_c1)+(notas.continua_2*cursos.porcentaje_c2)+(notas.parcial_1*cursos.porcentaje_p1)+(notas.parcial_2*cursos.porcentaje_p2))<4.8"); 
+                    WHERE notas.id_est=1 
+                    AND cursos.id_curso=1 
+                    AND ((notas.continua_1*cursos.porcentaje_c1)+(notas.continua_2*cursos.porcentaje_c2)+(notas.parcial_1*cursos.porcentaje_p1)+(notas.parcial_2*cursos.porcentaje_p2))<4.8"); 
 
 $cursoElegido = isset($_POST['botonCurso'])?$_POST['botonCurso']:'';
 

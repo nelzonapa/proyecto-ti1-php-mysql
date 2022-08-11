@@ -22,6 +22,21 @@ print_r($id);
 
 ?>    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<style>
+  span.title{
+    width: 100%;
+    /* font-size: 25px; */
+    /* text-align: center; */
+  }
+
+  .cuadritos span{
+    background: #b60303;
+    /* font-size: 18px; */
+    width: 300px;
+    color: #fff;
+  }
+</style>
+
 
 <div>
   <div>
@@ -35,7 +50,7 @@ print_r($id);
       <span><?php echo $datosPersonales[0]['apellidos']; ?></span>
     </div>
     <span>Registro de Notas:</span>
-    <div>
+    <div class="cuadritos">
       <span>Primera Fase</span>
       <span>Trabajo 1 </span>
       <span><?php echo $notasEstudianteSelec[0]['trabajo_1_c1']; ?></span><br>
@@ -54,7 +69,7 @@ print_r($id);
       <span>Parcial 1 </span>
       <span><?php echo $notasEstudianteSelec[0]['parcial_1'] ?> </span><br>
     </div>
-    <div>
+    <div class="cuadritos">
       <span>Segunda Fase</span>
       <span>Trabajo 1 </span>
       <span><?php echo $notasEstudianteSelec[0]['trabajo_1_c2']; ?></span><br>
@@ -73,7 +88,7 @@ print_r($id);
       <span>Parcial 2 </span>
       <span><?php echo $notasEstudianteSelec[0]['parcial_2'] ?> </span><br>
     </div>
-    <div>
+    <div class="cuadritos">
       <span>Tercera Fase</span>
       <span>Trabajo 1 </span>
       <span><?php echo $notasEstudianteSelec[0]['trabajo_1_c3']; ?></span><br>
@@ -92,6 +107,17 @@ print_r($id);
       <span>Parcial 3 </span>
       <span><?php echo $notasEstudianteSelec[0]['parcial_3'] ?> </span><br>
     </div>
+  </div>
+  <div>
+    <h2>Datos Asistencia</h2>
+
+
+    
+
+
+
+
+
   </div>
 </div>
 

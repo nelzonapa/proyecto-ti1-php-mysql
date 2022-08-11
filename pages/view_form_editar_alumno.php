@@ -1,19 +1,26 @@
-<?php include('../templates/view_cursos_header.php'); ?>
 <?php 
-include_once '../config/db.php'; 
+include('../templates/view_cursos_header.php');
+include("controller_notas.php");
+//include_once '../config/db.php'; 
 ?>
-
 <?php 
-$id = isset($_POST['id'])?$_POST['id']:'';
-$conexionDB = BaseDatos::crearInstancia();
 
+$id = isset($_POST['idEst'])?$_POST['idEst']:'';
+$idCurso = isset($_POST['idCurso'])?$_POST['idCurso']:'';
+$nombreCurso = isset($_POST['nombreCurso'])?$_POST['nombreCurso']:'';
+
+/*
+$conexionDB = BaseDatos::crearInstancia();
 $sql = "SELECT * FROM notas WHERE id_est=:id";
 $consulta = $conexionDB->prepare($sql);
 $consulta->bindParam(':id',$id);
 $consulta->execute();
 $datos = $consulta->fetch(PDO::FETCH_ASSOC);
+*/
+$conexionBD = new Conexion();
+$datos = $conexionBD->getNotasByEstudiante($idCurso,$id);
 // print_r($datos);
-print_r($id);
+print_r($_POST);
 echo "<br>";
 
 ?>
@@ -85,8 +92,8 @@ echo "<br>";
 
 <script>
   let btn= document.getElementById("btnGuardar"); // Encuentra el elemento "p" en el sitio
-  btn.onclick = muestraAlerta; // Agrega función onclick al elemento
-  function muestraAlerta(evento) {
+  //btn.onclick = muestraAlerta(); // Agrega función onclick al elemento
+  function muestraAlerta() {
     alert("Se guardaron los datos!!!");
   }
 </script>
