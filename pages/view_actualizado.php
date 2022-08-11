@@ -1,10 +1,17 @@
 <?php 
-
 include('../templates/view_cursos_header.php'); 
-include_once '../config/db.php';
+// include_once '../config/db.php';
+include("controller_notas.php");
+print_r($_POST);
+// print_r("-----------" . $_POST['trabajo_1c1']);
+//$conexionDB = BaseDatos::crearInstancia();
+$conexionBD = new Conexion();
+$conexionBD->actualizarNotasByEstudiante($_POST["idCurso"], $_POST["idEst"], $_POST);
+echo "<script>
+        alert('Se guardaron los datos!!!');
+</script>";
 
-$conexionDB = BaseDatos::crearInstancia();
-
+/*
 $id = isset($_POST['id'])?$_POST['id']:'';
 $tr1c1 = isset($_POST['trabajo_1c1']) ? $_POST['trabajo_1c1'] : '';
 $tr2c1 = isset($_POST['trabajo_2c1']) ? $_POST['trabajo_2c1'] : '';
@@ -30,9 +37,12 @@ $tr5c3 = isset($_POST['trabajo_5c3']) ? $_POST['trabajo_5c3'] : '';
 $tr6c3 = isset($_POST['trabajo_6c3']) ? $_POST['trabajo_6c3'] : '';
 $parcial3 = isset($_POST['parcial_3']) ? $_POST['parcial_3'] : ''; 
 
+*/
+
 //$sql = "UPDATE `notas` 
 //      SET continua_1=:c1, continua_2=:c2, continua_3=:c3, parcial_1=:p1, parcial_2=:p2,parcial_3=:p3
 //      WHERE id_est=:id";
+/*
 $sql = "UPDATE notas
         INNER JOIN cursos
         ON notas.id_est
@@ -73,7 +83,7 @@ $consulta2->bindParam(':parcial1',$parcial1);
 $consulta2->bindParam(':parcial2',$parcial2);
 $consulta2->bindParam(':parcial3',$parcial3);
 $consulta2->execute();
-
+*/
 ?>
 
 <?php include('../templates/view_asistencia_footer.php'); ?>

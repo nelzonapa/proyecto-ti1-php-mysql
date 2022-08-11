@@ -3,40 +3,33 @@ session_start();
 if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
-    class BaseDatos{
-        public static $instancia = null;
-        public static function crearInstancia(){
-          if(!isset(self::$instancia)){ //si la instancia tiene algo?
-            $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-            self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
-            //echo "Conexion satisfactoria a la Base de Datos ...";
-          }
-          return self::$instancia;
-        }
+class BaseDatos{
+    public static $instancia = null;
+    public static function crearInstancia(){
+      if(!isset(self::$instancia)){ //si la instancia tiene algo?
+        $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+        self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
+        //echo "Conexion satisfactoria a la Base de Datos ...";
+      }
+      return self::$instancia;
     }
+}
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $dia = $_POST["botonT"];
-        //echo "<label id='dia' class='columna'>".$dia."</label>";
-    }
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $id = $_POST["botonAlumno"];
+    //echo "<label id='id' class='columna'> ID del alumno: ".$id."</label>";
+}
 
-    $conexionDB = BaseDatos::crearInstancia();
+$conexionDB = BaseDatos::crearInstancia();
 
-    $sql1="SELECT * FROM `estudiantes` WHERE totalP=0";
-    $sql2="SELECT * FROM `estudiantes` WHERE totalF=0";
 
-    $consulta = $conexionDB->prepare($sql1);
-    $consulta->execute();
-    $abandonos = $consulta->fetchAll();
+$sql1="SELECT * FROM `estudiantes` WHERE id_est=$id";
 
-    $consulta2 = $conexionDB->prepare($sql2);
-    $consulta2->execute();
-    $presentes = $consulta2->fetchAll();
-
-    $totalAsistentes = 0;
-    $totalAbandonos = 0;
-    $mixto = 0;
+$consulta = $conexionDB->prepare($sql1);
+$consulta->execute();
+$numpresentes = $consulta->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -122,27 +115,41 @@ if(!isset($_SESSION['usuario'])){
       </div>
       <!-- cards -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <section class="all">
 
-<section class="all">
-<h1>Estadistica General</h1>
+    <h1>Asistencias y Faltas por Alumno</h1>
 
-<h3>Asignatura: Trabajo Interdisciplinar <?php //echo $asignatura; ?></h3>
-
-<form method="POST" action="../logic/DocAbandonos.php" name="form" id="form" target="_blank">
-  <input type="hidden" name="base64" id="base64"/>
-  <button class="btn_pdf" type="submit" id="sBtn">Descargar Registro</button>
-</form>
-
-<!-- <button class="btn_pdf"  ><a class="a_name" href="../logic/DocAbandonos.php" >Descargar Registro</a> </button> -->
-  <div class="table-container-notas">
-  <h2 class="centrar">Siempre Asistieron</h2>
-  <table id="tablaUsuarios" class="tabla">
+    <h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
+    <form action="../logic/DocAlumno.php" method="post">
+    <button id="bboton1" name="boton" class="btn_pdf" type="submit" value="<?php echo $id ?>">Descargar Registro</button></form>
+    <div class="table-container-notas">
+    <table id="tablaUsuarios" class="tabla">
     <thead>
       <tr>
         <th>ID</th>
         <th>Apellidos</th>
         <th>Nombres</th>
+        <th>Dia 1</th>
+        <th>Dia 2</th>
+        <th>Dia 3</th>
+        <th>Dia 4</th>
+        <th>Dia 5</th>
+        <th>Dia 6</th>
+        <th>Dia 7</th>
+        <th>Dia 8</th>
+        <th>Dia 9</th>
+        <th>Dia 10</th>
+        <th>Dia 11</th>
+        <th>Dia 12</th>
+        <th>Dia 13</th>
+        <th>Dia 14</th>
+        <th>Dia 15</th>
+        <th>Dia 16</th>
+        <th>Dia 17</th>
+        <th>Dia 18</th>
+        <th>Dia 19</th>
+        <th>Dia 20</th>
         <th>Total De Asistencia</th>
         <th>Total de Faltas</th>
       </tr>
@@ -150,81 +157,53 @@ if(!isset($_SESSION['usuario'])){
     
     <tbody class="espacios-tabla">
         <tr class="espacios-tabla">
-            <?php foreach($presentes as $estudiante){ 
-              $totalAsistentes = $totalAsistentes + 1;
-            ?>
+            <?php foreach($numpresentes as $estudiante){ ?>
             <td> <?php echo $estudiante['id_est']; ?> </td>
             <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
             <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
+            <?php 
+            for($i = 1; $i<=20; $i++){
+                echo "<td>".$estudiante["dia_$i"]."</td>";  
+            }
+            ?>
+            
             <td> <?php echo $estudiante['totalP']; ?> </td>
             <td> <?php echo $estudiante['totalF']; ?> </td>
         </tr>
 
     <?php } ?>
-    </tbody>
-</table>
-<br><br>
-<h2 class="centrar">Abandonos</h2>
-<table class="tabla">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Apellidos</th>
-        <th>Nombres</th>
-        <th>Total De Asistencia</th>
-        <th>Total de Faltas</th>
-      </tr>
-    </thead>
-    
-    <tbody class="espacios-tabla">
-        <tr class="espacios-tabla">
-            <?php foreach($abandonos as $estudiante){ 
-              $totalAbandonos = $totalAbandonos + 1;
-            ?>
-            <td> <?php echo $estudiante['id_est']; ?> </td>
-            <td class="names"> <?php echo $estudiante['apellidos']; ?> </td>
-            <td class="names"> <?php echo $estudiante['nombres']; ?> </td>
-            <td> <?php echo $estudiante['totalP']; ?> </td>
-            <td> <?php echo $estudiante['totalF']; ?> </td>
-        </tr>
-            <?php } ?>
-    </tbody>  
-  </table>
-  </div>
 
-  <?php
-      $mixto = 40 - $totalAsistentes - $totalAbandonos;
-  ?>
+    </tbody>
+
+</table>    
+  </div>
 
   <!--Recien empieza-->
   <br><br>
     <h2 class="centrar">Grafica</h2>
 
-    <div class="graficos">
-            <canvas id="canvas" width="130" height="80"></canvas>
-            <!-- <canvas id="myChart" width="130" height="80"></canvas> -->
-            <button onclick="Descargar()">Descargar</button>
-    </div>
 
-    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_Est_general.php'">Volver</button>
-    </section>
-    </body>
+    <div class="graficos">
+            <canvas id="myChart" width="130" height="80"></canvas>
+            <button onclick="Descargar()">Download</button>
+        </div>
+
+    <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_estadistica_alumno.php'">Volver</button>
+    
+</section>
 
     <script>
-// const ctx = document.getElementById('myChart').getContext('2d');
-const ctx = document.getElementById('canvas').getContext('2d');
+const ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['Siempre Asistio','Abandono','Pre./Falt.'],
+    labels: ['Presentes','Faltas'],
     datasets: [{
-      label: 'Cantidad de Estudiantes',
+      label: 'Total',
       backgroundColor: [
         "rgb(0, 150, 254)",
-        "rgb(150, 100, 50)",
-        "rgb(255, 50, 254)"
-      ],
-      data: [<?php echo $totalAsistentes.",".$totalAbandonos.",".$mixto ?>],
+        "rgb(150, 100, 50)"      ],
+      data: [<?php echo $estudiante['totalP'].",".$estudiante['totalF'] ?>],
     }]
   },
   options: {
@@ -240,36 +219,20 @@ var myChart = new Chart(ctx, {
 
 function Descargar(){
         const imageLink = document.createElement('a');
-        const canvas = document.getElementById('canvas');
-        // const canvas = document.getElementById('myChart');
-        imageLink.download = 'Abandono.png';
+        const canvas = document.getElementById('myChart');
+        imageLink.download = 'est_alumno.png';
         imageLink.href = canvas.toDataURL('image/png');
         imageLink.click();
 
         console.log(imageLink);
     };
     </script>
-
-<script>
-  let boton = document.getElementById("sBtn");
-  boton.addEventListener("click", function() {
-    var ncanva = document.getElementById("canvas");
-    var img = ncanva.toDataURL("image/png");
-    document.getElementById('base64').value = img;
-
-  });
-</script>
-
-</div>
+    </div>
   </div>
   <script src="../../js/nav.js"></script>
   
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+    </body>
     </html>
-
-
-<!-- /* Including the view_asistencia_footer.php file. */ -->
-<?php include('../../templates/view_asistencia_footer.php'); ?>
-

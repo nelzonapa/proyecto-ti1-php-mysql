@@ -5,7 +5,10 @@ include_once('../../config/db.php');
 $img = $_POST['base64'];
 
 $conexionDB = BaseDatos::crearInstancia();
-
+    // if($_SERVER["REQUEST_METHOD"] == "POST"){
+    //     $dia = $_POST["botonTotal"];
+    //     echo "<label id='dia' class='columna'>".$dia."</label>";
+    // }
 $sql = "SELECT * FROM estadistica_diaria";
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();

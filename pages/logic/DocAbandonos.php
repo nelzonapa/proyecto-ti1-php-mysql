@@ -4,6 +4,8 @@ include_once('../../config/db.php');
 
 $conexionDB = BaseDatos::crearInstancia();
 
+$img = $_POST['base64'];
+
 $sql1="SELECT * FROM `estudiantes` WHERE totalP=0";
     $sql2="SELECT * FROM `estudiantes` WHERE totalF=0";
 
@@ -98,7 +100,7 @@ $pdf->Ln(25);
 $pdf->SetFont('Times','',15);
 $pdf->Cell(0,0,"Cuadro Estadistico",0,0,'C',0);
 
-$pdf->Image('../../resources/Abandono.png' , 35 ,180, 150 , 75,'PNG');
+$pdf->Image($img, 35 ,180, 150 , 75,'PNG');
 $pdf->Output();
 
 

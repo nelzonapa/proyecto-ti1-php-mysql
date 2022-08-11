@@ -6,15 +6,20 @@ $img = $_POST['base64'];
 
 $conexionDB = BaseDatos::crearInstancia();
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $dia = $_POST["boton"];
-        //echo "<label id='dia' class='columna'>".$dia."</label>";
-    }
+$sql1="SELECT * FROM `estudiantes` WHERE totalP=0";
+    $sql2="SELECT * FROM `estudiantes` WHERE totalF=0";
 
-    $sql = "SELECT * FROM estudiantes";
-    $consulta = $conexionDB->prepare($sql);
+    $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();
-    $listaDeEstudiantes = $consulta->fetchAll();
+    $abandonos = $consulta->fetchAll();
+
+    $consulta2 = $conexionDB->prepare($sql2);
+    $consulta2->execute();
+    $presentes = $consulta2->fetchAll();
+
+    $totalAsistentes = 0;
+    $totalAbandonos = 0;
+    $mixto = 0;
 
 class PDF extends FPDF
 {
@@ -40,66 +45,63 @@ function Footer()
 }
 
 // Creación del objeto de la clase heredada
+
 //$pdf = new PDF('L', 'mm', 'A3');
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',15);
 
-$pdf->Cell(0,0,"Tabla de asistencia",0,0,'C',0);
+$pdf->Cell(0,0,"Estadistica del semestre",0,0,'C',0);
 $pdf->SetFont('Times','',12);
 $pdf->Ln(12);
-$pdf->SetX(55);
+$pdf->SetX(45);
 $pdf->SetFillColor(14,139,246);
 $pdf->Cell(8,7,"ID",1,0,'C',0);
 $pdf->Cell(40,7,"Apellidos",1,0,'C',0);
 $pdf->Cell(42,7,"Nombres",1,0,'C',0);
-$pdf->Cell(13,7,utf8_encode($dia),1,0,'C',0);
-$pdf->Ln(7);
-
+$pdf->Cell(20,7,"T. Asist.",1,0,'C',0);
+$pdf->Cell(20,7,"T. Faltas",1,1,'C',0);
 $pdf->SetFillColor(255,255,255);//color de fondo
 $pdf->SetDrawColor(51,51,51);//color de linea
-foreach($listaDeEstudiantes as $estudiante){
-  $pdf->setX(55);
+foreach($presentes as $estudiante){
+  $pdf->setX(45);
   $pdf->Cell(8,6,utf8_decode($estudiante['id_est']),1,0,'C',0);
   $pdf->Cell(40,6,utf8_decode($estudiante['apellidos']),1,0,'C',0);
   $pdf->Cell(42,6,utf8_decode($estudiante['nombres']),1,0,'C',0);
-  $pdf->Cell(13,6,utf8_encode($estudiante[$dia]),1,0,'C',0);
-  $pdf->Ln(6);
+  $pdf->Cell(20,6,utf8_decode($estudiante['totalP']),1,0,'C',0);
+  $pdf->Cell(20,6,utf8_decode($estudiante['totalF']),1,1,'C',0);
 }
 
-$sql = "SELECT * FROM estadistica_diaria";
-$consulta = $conexionDB->prepare($sql);
-$consulta->execute();
-$listaDecondiciones = $consulta->fetchAll();
 
 $pdf->Ln(15);
 $pdf->SetFont('Times','',15);
-$pdf->Cell(0,0,"Tabla de asistencia",0,0,'C',0);
+$pdf->Cell(0,0,"Abandonos",0,0,'C',0);
 $pdf->SetFont('Times','',12);
 $pdf->Ln(12);
-$pdf->SetX(75);
+$pdf->SetX(45);
 $pdf->SetFillColor(14,139,246);
 $pdf->Cell(8,7,"ID",1,0,'C',0);
-$pdf->Cell(40,7,"Condicion",1,0,'C',0);
-$pdf->Cell(13,7,utf8_encode($dia),1,0,'C',0);
-$pdf->Ln(7);
-
+$pdf->Cell(40,7,"Apellidos",1,0,'C',0);
+$pdf->Cell(42,7,"Nombres",1,0,'C',0);
+$pdf->Cell(20,7,"T. Asist.",1,0,'C',0);
+$pdf->Cell(20,7,"T. Faltas",1,1,'C',0);
 $pdf->SetFillColor(255,255,255);//color de fondo
 $pdf->SetDrawColor(51,51,51);//color de linea
-foreach($listaDecondiciones as $estudiante){
-  $pdf->setX(75);
-  $pdf->Cell(8,6,utf8_decode($estudiante['id']),1,0,'C',0);
-  $pdf->Cell(40,6,utf8_decode($estudiante['condicion']),1,0,'C',0);
-  $pdf->Cell(13,6,utf8_encode($estudiante[$dia]),1,0,'C',0);
-  $pdf->Ln(6);
+foreach($abandonos as $estudiante){
+  $pdf->setX(45);
+  $pdf->Cell(8,6,utf8_decode($estudiante['id_est']),1,0,'C',0);
+  $pdf->Cell(40,6,utf8_decode($estudiante['apellidos']),1,0,'C',0);
+  $pdf->Cell(42,6,utf8_decode($estudiante['nombres']),1,0,'C',0);
+  $pdf->Cell(20,6,utf8_decode($estudiante['totalP']),1,0,'C',0);
+  $pdf->Cell(20,6,utf8_decode($estudiante['totalF']),1,1,'C',0);
 }
-
-$pdf->Ln(15);
+$pdf->Ln(25);
 $pdf->SetFont('Times','',15);
-$pdf->Cell(0,0,"Cuadro Estadistica",0,0,'C',0);
+$pdf->Cell(0,0,"Cuadro Estadistico",0,0,'C',0);
 
-$pdf->Image($img, 40 ,120, 150 , 75,'PNG');
+$pdf->Image($img, 35 ,180, 150 , 75,'PNG');
 $pdf->Output();
+
 
 ?>
