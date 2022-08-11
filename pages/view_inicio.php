@@ -3,6 +3,8 @@ session_start();
 if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
+include_once("datosCardBox.php");
+/*
 include_once("../config/db.php");
 date_default_timezone_set('America/Lima');
 $conexionDB = BaseDatos::crearInstancia();
@@ -13,8 +15,8 @@ $numCursos = $res[0]['cantidadCursos'];
 $res = myquery($conexionDB,"SELECT COUNT(usuario) as 'cantidadUsua' FROM usuarios");
 $numUsuarios = $res[0]['cantidadUsua'];
 $fecha = date('l jS \of F Y h:i:s A');
-// $separarFecha = 
 
+*/
 ?>
 
 <!DOCTYPE html>
@@ -136,7 +138,7 @@ $fecha = date('l jS \of F Y h:i:s A');
           </div>
         </div>
       </div>
-
+    
 
       <div id="img1" class="img-container">
         <img src="../img/img2.jpg" class="img_inicio">

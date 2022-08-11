@@ -4,6 +4,7 @@ session_start();
 if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
+include_once("datosCardBox.php");
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +91,7 @@ if(!isset($_SESSION['usuario'])){
       <div class="cardBox">
         <div class="card">
           <div>
-            <div class="numbers">226</div>
+            <div class="numbers"><?php echo $numEstudiantes; ?></div>
             <div class="cardName">Estudiantes</div>
           </div>
           <div class="iconBx">
@@ -99,7 +100,7 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">7</div>
+            <div class="numbers"><?php echo $numCursos; ?></div>
             <div class="cardName">Asignaturas</div>
           </div>
           <div class="iconBx">
@@ -108,7 +109,7 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">2</div>
+            <div class="numbers"><?php echo $numUsuarios; ?></div>
             <div class="cardName">Usuarios</div>
           </div>
           <div class="iconBx">
@@ -117,8 +118,8 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">05</div>
-            <div class="cardName">Julio 2022</div>
+            <div class="numbers"><?php echo date('jS'); ?></div>
+            <div class="cardName"><?php echo date('l F Y'); ?></div>
           </div>
           <div class="iconBx">
             <ion-icon name="calendar-outline"></ion-icon>

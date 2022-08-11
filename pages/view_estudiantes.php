@@ -5,7 +5,16 @@ if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
 ?>
-<?php include('logic/estudiantes.php'); ?>
+<?php 
+include('logic/estudiantes.php'); //por borrar
+include_once("datosCardBox.php");
+include_once("controller_estudiantes.php");
+
+$conexionBDEstudiantes = new Conexion();
+$estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -92,7 +101,7 @@ if(!isset($_SESSION['usuario'])){
       <div class="cardBox">
         <div class="card">
           <div>
-            <div class="numbers">226</div>
+            <div class="numbers"><?php echo $numEstudiantes; ?></div>
             <div class="cardName">Estudiantes</div>
           </div>
           <div class="iconBx">
@@ -101,7 +110,7 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">7</div>
+            <div class="numbers"><?php echo $numCursos; ?></div>
             <div class="cardName">Asignaturas</div>
           </div>
           <div class="iconBx">
@@ -110,7 +119,7 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">2</div>
+            <div class="numbers"><?php echo $numUsuarios; ?></div>
             <div class="cardName">Usuarios</div>
           </div>
           <div class="iconBx">
@@ -119,14 +128,16 @@ if(!isset($_SESSION['usuario'])){
         </div>
         <div class="card">
           <div>
-            <div class="numbers">05</div>
-            <div class="cardName">Julio 2022</div>
+            <div class="numbers"><?php echo date('jS'); ?></div>
+            <div class="cardName"><?php echo date('l F Y'); ?></div>
           </div>
           <div class="iconBx">
             <ion-icon name="calendar-outline"></ion-icon>
           </div>
         </div>
       </div>
+
+      <?php print_r($estudiantesEpcc[0]); echo "<br>"; print_r($estudiantesEpcc[1]); ?>
 
       <div class="container_tabla">
         <table id="tablaEstudiantes" class="tabla-estudiantes">
@@ -140,15 +151,15 @@ if(!isset($_SESSION['usuario'])){
             </tr>
           </thead>
           <tbody>
-            <?php foreach($listaDeEstudiantes as $estudiante){ ?>
+            <?php foreach($estudiantesEpcc as $estudiante){ ?>
               <tr class="espacios-tabla">
-                <td class="id"> <?php echo $estudiante['id_est']; ?> </td>
-                <td class="apellidos"> <?php echo $estudiante['apellidos']; ?> </td>
-                <td class="nombres"> <?php echo $estudiante['nombres']; ?> </td>
-                <td class="semestre"> III </td>
+                <td class="id"> <?php echo $estudiante['id_epcc']; ?> </td>
+                <td class="apellidos"> <?php echo $estudiante['apellidos_epcc']; ?> </td>
+                <td class="nombres"> <?php echo $estudiante['nombres_epcc']; ?> </td>
+                <td class="semestre"> <?php echo $estudiante['semestre_epcc']; ?>  </td>
                 <td class="btns">
                   <form method="post" action="view_info_alumno.php" >
-                    <input type="hidden" name="id" value="ver_<?php echo $estudiante['id_est']; ?>">
+                    <input type="hidden" name="id" value="ver_<?php echo $estudiante['id_epcc']; ?>">
                     <input type="hidden" name="curso" value="ver_<?php echo $cursoElegido; ?>">
                     <button class="btn-en-tabla" type="submit">Ver</button>
                   </form>

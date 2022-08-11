@@ -31,7 +31,6 @@ class Conexion{
                   INNER JOIN estudiantes_"."$curso"."
                   ON notas_"."$curso".".id_est
                   WHERE estudiantes_"."$curso".".id_est=notas_"."$curso".".id_est;";
-                  //print_r($consulta);
     $listaDeEstudiantes = $this->queryExecute($consulta);
     return $listaDeEstudiantes; 
   }
