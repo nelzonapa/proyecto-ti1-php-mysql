@@ -126,7 +126,7 @@ include_once("datosCardBox.php");
         </div>
       </div>
     
-
+      <?php print_r($_SESSION); ?>
       <div id="img1" class="img-container">
         <img src="../img/img2.jpg" class="img_inicio">
       </div>

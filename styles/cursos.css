@@ -39,6 +39,7 @@
   transition: 0.5s;
   margin: 10px;
   box-shadow: 0 7px 20px rgb(112, 0, 0);
+  cursor: pointer;
 }
 .numbersCurso{
   font-size: large;

@@ -75,7 +75,7 @@ body {
 }
 
 .create-account {
-  padding: 2.7rem 0;
+  padding: 2.3rem 0;
   font-size: 1.7rem;
 }
 
@@ -161,4 +161,14 @@ body {
 .input-form::placeholder{
   color: rgb(177, 177, 177);
   font-style: normal;
+}
+
+.input-form.registro {
+  margin-bottom: 22px;
+}
+input#btn-register{
+  margin-top: 35px;
+}
+h2#iniciar_sesion{
+  margin-top: 50px;
 }

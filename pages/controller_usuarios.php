@@ -27,12 +27,26 @@ class Conexion{
     $res = $query->fetchAll();
     return $res;
   }
-//$nombre,$apellidos,$usuario,$password
+  
+  public function getAllUsuarios(){
+    $consulta = "SELECT * FROM usuarios";
+    $res = $this->queryExecute($consulta);
+    return $res;
+  }
+
+  public function getInfoUsuarioBy_usuario($usuario){
+    $consulta = "SELECT * FROM `usuarios` WHERE usuario='$usuario'";
+    $res = $this->queryExecute($consulta);
+    $infoUser = $res[0];
+    return $infoUser;
+  }
+
+
   public function insertarNuevoUsuario($nombres,$apellidos,$usuario,$password){
     $resNumUsuarios = $this->queryExecute("SELECT COUNT(codigo) as 'cantidadUsua' FROM usuarios");
     $numUsuarios = $resNumUsuarios[0]['cantidadUsua'];
     $nuevoCodigo = $numUsuarios+1;
-    
+
     $sql = "INSERT INTO `usuarios` (`codigo`, `usuario`, `password`, `nombres`, `apellidos`, `email`, `permiso`) VALUES ($nuevoCodigo, '$usuario', '$password', '$nombres', '$apellidos', '', '')";
     $query = $this->conexion->prepare($sql);
     $query->execute();

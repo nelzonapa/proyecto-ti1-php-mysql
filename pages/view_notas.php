@@ -3,17 +3,29 @@ session_start();
 if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
+
+$permisoDocenteEsperado = $_POST['idCurso']."_docente";
+if ($_SESSION['permiso'] == "administrador") { // Acceso para Administrador
+  print_r("");
+} else if ($_SESSION['permiso'] != $permisoDocenteEsperado){ // Acceso para Docente del curso que le corresponda
+    header('Location: view_cursos.php');
+}
+
+?>
+
+<?php
 //include('logic/cursos.php');
 include("controller_notas.php");
-?> 
-<?php
+
 $nombreCurso = isset($_POST['botonCurso'])?$_POST['botonCurso']:'';
 $idCurso = isset($_POST['idCurso']) ? $_POST['idCurso']:'';
 //print_r($nombreCurso); print_r($_POST["idCurso"]);
 // ----- Funciones de la Conexion -----
 $conexionBD = new Conexion();
+
 $estudiantes = $conexionBD->getEstudiantes($idCurso);
 $totalEst = $conexionBD->getTotalEstudiantes($idCurso);
+
 
 $numAprC1 = $conexionBD->numAprobados($idCurso,"continua_1");
 $numDesaprC1 = $conexionBD->numDesaprobados($idCurso,"continua_1");
@@ -79,8 +91,9 @@ $arrayTitulosNotas = array(
   <!-- <link rel="stylesheet" href="../styles/asistencia.css"> -->
   <link rel="stylesheet" href="../styles/graficos.css">
   <!-- <link rel="stylesheet" href="../styles/tablas.css"> -->
-  <link rel="stylesheet" href="../styles/notas.css">
+  <link rel="stylesheet" href="../styles/notas.css?23156">
   <link rel="stylesheet" href="../styles/boton.css">
+  
   <title>Inicio</title>
 </head>
 <body>
@@ -137,9 +150,9 @@ $arrayTitulosNotas = array(
     <div class="main">
       <!-- Top Bar (Toggle Buscar y User) -->
       <div class="topbar">
-        <div class="toggle">
+        <!-- <div class="toggle">
           <ion-icon name="menu-outline"></ion-icon>
-        </div>
+        </div> -->
         <!-- buscar -->
         <div class="search">
           <label for="">
@@ -163,26 +176,33 @@ $arrayTitulosNotas = array(
         
         <!-- <button class="btn_pdf"><a class="a_name" href="RegistroNotas.php" target="_blank" >Descargar Registro</a> </button> -->
         <!-- <a class="btn_pdf" href="RegistroNotas.php" target="_blank" >Descargar Registro</a> -->
-        <form action="RegistroNotas.php" method="post" target="_blank">
-          <input type="hidden" name="nombreCurso" value="<?php echo $nombreCurso; ?>">
-          <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
-          <button class="btns_a" type="submit">Descargar Registro</button>
-        </form>
-        <a class="btns_a" href="#f1" >Ver Primera Fase</a>
-        <a class="btns_a" href="#f2" >Ver Segunda Fase</a>
-        <a class="btns_a" href="#f3" >Ver Tercera Fase</a>
-        <a class="btns_a" href="#finales">Ver Notas Finales</a>
-        <a class="btns_a" href="#estadisticas">Ver Estadisticas del curso</a>
-        <br>
-        <a class="btns_a" href="#graf1">Ver grafico 1</a>
-        <a class="btns_a" href="#graf2">Ver grafico 2</a>
-        <a class="btns_a" href="#graf3">Ver grafico 3</a>
-        <a class="btns_a" href="#graf4">Ver grafico 4</a>
-        <a class="btns_a" href="#graf5">Ver grafico 5</a>
-        <a class="btns_a" href="#graf6">Ver grafico 6</a>
-        <a class="btns_a" href="#graf7">Ver grafico 7</a>
+        <div id="container-btnDescargar">
+          <form id="btnDescargarRegistro" action="RegistroNotas.php" method="post" target="_blank">
+            <input type="hidden" name="nombreCurso" value="<?php echo $nombreCurso; ?>">
+            <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
+            <button id="btnDescargar" class="btns_a" type="submit">Descargar Registro</button>
+          </form>
+        </div>
+        <div id="btns1" class="container_btns">
+          <a class="btns_a" href="#f1" >Ver Primera Fase</a>
+          <a class="btns_a" href="#f2" >Ver Segunda Fase</a>
+          <a class="btns_a" href="#f3" >Ver Tercera Fase</a>
+        </div>
+        <div id="btns2" class="container_btns">
+          <a class="btns_a" href="#finales">Ver Libreta De Notas del curso</a>
+          <a class="btns_a" href="#estadisticas">Ver Estadisticas del curso</a>
+        </div>
+        <div id="btns3" class="container_btns">
+          <a class="btns_a" href="#graf1">Ver grafico 1</a>
+          <a class="btns_a" href="#graf2">Ver grafico 2</a>
+          <a class="btns_a" href="#graf3">Ver grafico 3</a>
+          <a class="btns_a" href="#graf4">Ver grafico 4</a>
+          <a class="btns_a" href="#graf5">Ver grafico 5</a>
+          <a class="btns_a" href="#graf6">Ver grafico 6</a>
+          <a class="btns_a" href="#graf7">Ver grafico 7</a>
+        </div>
         
-        <br><br>
+        <br>
         
         <div cslass="table-container-notas">
           <h2 class="subtitulo" id="f1">Primera Fase</h2>

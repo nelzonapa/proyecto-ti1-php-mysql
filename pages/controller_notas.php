@@ -172,8 +172,7 @@ class Conexion{
   }
 
 
-
-  //SELECT estudiantes_2.*,estudiantes_3.* FROM estudiantes_2 INNER JOIN estudiantes_3 ON estudiantes_3.id_est;
+  
 };
 
 

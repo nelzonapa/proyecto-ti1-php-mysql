@@ -14,7 +14,7 @@ if(!isset($_SESSION['usuario'])){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/nav.css?33">
-  <link rel="stylesheet" href="../styles/cursos.css?33">
+  <link rel="stylesheet" href="../styles/cursos.css?123">
   <link rel="stylesheet" href="../styles/boton.css">
   <title>Cursos</title>
 </head>

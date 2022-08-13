@@ -11,19 +11,11 @@ $apellidos = isset($_POST['apellidosRe']) ? $_POST['nombresRe'] : '';
 $usuario = isset($_POST['usuarioRe']) ? $_POST['usuarioRe'] : '';
 $password = isset($_POST['passwordRe']) ? $_POST['passwordRe'] : '';
 
-$sql = "SELECT * FROM usuarios";
-//$sql2 = "INSERT INTO usuarios (`usuario`, `email`, `clave`) VALUES ('$nombre','$email','$password')";
-
-$consulta = $conexionDB->prepare($sql);
-$consulta->execute();
-$listaDeUsuarios = $consulta->fetchAll();
+$listaDeUsuarios = $conexionBDUsuarios->getAllUsuarios();
+// print_r($res);
 
 if(isset($_POST['nombresRe'])){
   $conexionBDUsuarios->insertarNuevoUsuario($nombres,$apellidos,$usuario,$password);
-  /*
-  $consulta = $conexionDB->prepare($sql2);
-  $consulta->execute();
-  */
   $_SESSION['nombres'] = $nombres;
   $_SESSION['apellidos'] = $apellidos;
   $_SESSION['usuario'] = $usuario;
@@ -36,9 +28,13 @@ if(isset($_POST['usuario'])){
   $mensaje = 'Usuario o clave incorrecta';
   // if($_POST['usuario']=='admin1' && $_POST['password']=='clave'){
   foreach($listaDeUsuarios as $user){
-    if($_POST['usuario']==$user['usuario'] && $_POST['password']==$user['clave']){
+    if($_POST['usuario']==$user['usuario'] && $_POST['password']==$user['password']){
+      $infoUsuario = $conexionBDUsuarios->getInfoUsuarioBy_usuario($_POST['usuario']);
       $_SESSION['usuario'] = $_POST['usuario'];
       $_SESSION['password'] = $_POST['password'];
+      $_SESSION['nombres'] = $infoUsuario['nombres'];
+      $_SESSION['apellidos'] = $infoUsuario['apellidos'];
+      $_SESSION['permiso'] = $infoUsuario['permiso'];
       // echo "Login Correcto";
       header('Location: pages/view_inicio.php');
     }
@@ -53,7 +49,7 @@ if(isset($_POST['usuario'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/login.css?20220504">
+    <link rel="stylesheet" href="styles/login.css?135">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -81,17 +77,17 @@ if(isset($_POST['usuario'])){
           </div>
         </div>
         <p class="cuenta-nueva">Crear una cuenta</p>
-        <input class="input-form" type="text" name="nombresRe" id="nombresRe" placeholder="Nombres" required>
-        <input class="input-form" type="text" name="apellidosRe" id="apellidosRe" placeholder="Apellidos" required>
-        <input class="input-form" type="text" name="usuarioRe" id="usuarioRe" placeholder="Usuario" required>
-        <input class="input-form" type="password" name="passwordRe" id="passwordRe" placeholder="Contraseña" required>
-        <input type="submit" value="Registrarse">
+        <input class="input-form registro" type="text" name="nombresRe" id="nombresRe" placeholder="Nombres" required>
+        <input class="input-form registro" type="text" name="apellidosRe" id="apellidosRe" placeholder="Apellidos" required>
+        <input class="input-form registro" type="text" name="usuarioRe" id="usuarioRe" placeholder="Usuario" required>
+        <input class="input-form registro" type="password" name="passwordRe" id="passwordRe" placeholder="Contraseña" required>
+        <input clas="btn-register" id="btn-register" type="submit" value="Registrarse">
       </form>
     </div>
 
     <div class="container-form sign-in">
       <form class="formulario" method="post">
-        <h2 class="create-account">Iniciar Sesion</h2>
+        <h2 class="create-account" id="iniciar_sesion">Iniciar Sesion</h2>
         <div class="iconos">
           <div class="border-icon">
             <i class='bx bxl-instagram'></i>

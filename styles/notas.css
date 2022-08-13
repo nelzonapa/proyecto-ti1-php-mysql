@@ -195,3 +195,78 @@ margin: 20px;
 .notaParcial{
   background-color: #fdb3b3;
 }
+
+#btns1, #btns2, #btns3 {
+  height: 50px;
+  margin: 18px 0;
+  padding: 0 20px;
+}
+
+#btns1{
+  /* position: relative; */
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  text-align: center;
+  /* grid-gap: 30px; */
+  /* height: 50px; */
+  /* background-color: #78288C; */
+}
+#btns2{
+  /* position: relative; */
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  text-align: center;
+  /* grid-gap: 30px; */
+  /* height: 50px; */
+  /* background-color: #78288C; */
+}
+#btns3{
+  /* position: relative; */
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  text-align: center;
+  /* grid-gap: 30px; */
+  /* height: 50px; */
+  /* background-color: #78288C; */
+}
+
+.container_btns a{
+  height: 50px;
+  background-color: var(--unsa);
+  text-align: center;
+  color: var(--white);
+  text-decoration: none;
+  padding: 15px 0;
+  border: 1px solid var(--white);
+  transition: 300ms;
+}
+.container_btns a:hover{
+  background-color: var(--white);
+  border: 1px solid var(--unsa);
+  color: var(--unsa);
+  padding: 8px 0;
+}
+#container-btnDescargar{
+  text-align: center;
+}
+#btnDescargar{
+  font-size: 16px;
+  width: 30%;
+  height: 50px;
+  text-decoration: none;
+  color: var(--unsa);
+  background-color: var(--white);
+  border: 1px solid var(--unsa);  
+  transition: 300ms;
+  border-radius: 12px;
+}
+#btnDescargar:hover{
+  border: 1px solid var(--white);
+  background-color: var(--unsa);
+  color: var(--white);
+  padding-bottom: 8px;
+  cursor: pointer;
+}
