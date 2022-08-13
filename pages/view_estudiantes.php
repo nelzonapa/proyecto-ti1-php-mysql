@@ -24,9 +24,11 @@ $estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/nav.css?31">
   <link rel="stylesheet" href="../styles/estudiantes.css">
+  <link rel="stylesheet" href="../styles/boton.css">
   <title>Inicio</title>
 </head>
 <body>
+  <p id="principio"></p>
   <div class="container">
     <!-- Seccion 1 Navegacion -->
     <div class="navigation">
@@ -137,8 +139,6 @@ $estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
         </div>
       </div>
 
-      <?php print_r($estudiantesEpcc[0]); echo "<br>"; print_r($estudiantesEpcc[1]); ?>
-
       <div class="container_tabla">
         <table id="tablaEstudiantes" class="tabla-estudiantes">
           <thead>
@@ -172,7 +172,11 @@ $estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
         </table>
       </div>
 
-
+      
+      <!-- boton -->
+      <a href="#principio"><span class="iconarriba"><ion-icon id="botonArriba" name="arrow-up-circle-outline"></ion-icon></span></a>
+      <script type="text/javascript" src="../js/botonArriba.js"></script>
+      <!-- ----------- -->
     </div>
   </div>
   

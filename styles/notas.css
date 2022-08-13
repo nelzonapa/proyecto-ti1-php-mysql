@@ -17,7 +17,7 @@ h3.titulo{
   padding: 12px 0;
   height: 50px;
 }
-
+/*
 .iconarriba ion-icon{
   width: 45px;
   height: 45px;
@@ -30,7 +30,7 @@ h3.titulo{
 .iconarriba ion-icon:hover {
   color: var(--black1);
 }
-
+*/
 .centrar{
   text-align: center;
 }

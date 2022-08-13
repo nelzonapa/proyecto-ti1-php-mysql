@@ -80,6 +80,7 @@ $arrayTitulosNotas = array(
   <link rel="stylesheet" href="../styles/graficos.css">
   <!-- <link rel="stylesheet" href="../styles/tablas.css"> -->
   <link rel="stylesheet" href="../styles/notas.css">
+  <link rel="stylesheet" href="../styles/boton.css">
   <title>Inicio</title>
 </head>
 <body>

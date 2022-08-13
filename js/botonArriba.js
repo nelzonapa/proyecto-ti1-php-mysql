@@ -1,7 +1,7 @@
 function irArriba(){
   window.addEventListener('scroll',() => {
     let scroll = document.documentElement.scrollTop;
-    console.log(scroll);
+    //console.log(scroll);
     let botonArriba = document.getElementById("botonArriba");
     //let botonArriba = document.getElementsByClassName("iconarriba");
     if (scroll > 300) {

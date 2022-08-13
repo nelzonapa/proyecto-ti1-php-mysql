@@ -27,15 +27,18 @@ class Conexion{
     $res = $query->fetchAll();
     return $res;
   }
-
-  public function getAllEstudiantesEpcc(){
-    $consulta = "SELECT * FROM estudiantes_epcc";
-    $res = $this->queryExecute($consulta);
-    return $res;             
+//$nombre,$apellidos,$usuario,$password
+  public function insertarNuevoUsuario($nombres,$apellidos,$usuario,$password){
+    $resNumUsuarios = $this->queryExecute("SELECT COUNT(codigo) as 'cantidadUsua' FROM usuarios");
+    $numUsuarios = $resNumUsuarios[0]['cantidadUsua'];
+    $nuevoCodigo = $numUsuarios+1;
+    
+    $sql = "INSERT INTO `usuarios` (`codigo`, `usuario`, `password`, `nombres`, `apellidos`, `email`, `permiso`) VALUES ($nuevoCodigo, '$usuario', '$password', '$nombres', '$apellidos', '', '')";
+    $query = $this->conexion->prepare($sql);
+    $query->execute();
   }
+
 }
-
-
 
 ?>
 

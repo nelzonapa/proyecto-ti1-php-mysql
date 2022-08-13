@@ -15,9 +15,11 @@ if(!isset($_SESSION['usuario'])){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../styles/nav.css?33">
   <link rel="stylesheet" href="../styles/cursos.css?33">
+  <link rel="stylesheet" href="../styles/boton.css">
   <title>Cursos</title>
 </head>
 <body>
+  <p id="principio"></p>
   <div class="container">
     <!-- Seccion 1 Navegacion -->
     <div class="navigation">
@@ -108,7 +110,12 @@ if(!isset($_SESSION['usuario'])){
         <?php 
           } 
         ?>
-    </div>
+
+      </div>
+        <!-- boton -->
+          <a href="#principio"><span class="iconarriba"><ion-icon id="botonArriba" name="arrow-up-circle-outline"></ion-icon></span></a>
+          <script type="text/javascript" src="../js/botonArriba.js"></script>
+        <!-- ----------- -->
   </div>
   
   <script src="../js/nav.js"></script>

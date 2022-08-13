@@ -1,29 +1,38 @@
 <?php
 include_once 'config/db.php';
+include_once ("pages/controller_usuarios.php");
 
 session_start();
 $conexionDB = BaseDatos::crearInstancia();
+$conexionBDUsuarios = new Conexion();
 
-$nombre = isset($_POST['nombreRe']) ? $_POST['nombreRe'] : '';
-$email = isset($_POST['nombreRe']) ? $_POST['emailRe'] : '';
-$password = isset($_POST['nombreRe']) ? $_POST['passwordRe'] : '';
+$nombres = isset($_POST['nombresRe']) ? $_POST['nombresRe'] : '';
+$apellidos = isset($_POST['apellidosRe']) ? $_POST['nombresRe'] : '';
+$usuario = isset($_POST['usuarioRe']) ? $_POST['usuarioRe'] : '';
+$password = isset($_POST['passwordRe']) ? $_POST['passwordRe'] : '';
 
 $sql = "SELECT * FROM usuarios";
-$sql2 = "INSERT INTO usuarios (`usuario`, `email`, `clave`) VALUES ('$nombre','$email','$password')";
+//$sql2 = "INSERT INTO usuarios (`usuario`, `email`, `clave`) VALUES ('$nombre','$email','$password')";
 
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeUsuarios = $consulta->fetchAll();
 
-if(isset($_POST['nombreRe'])){
+if(isset($_POST['nombresRe'])){
+  $conexionBDUsuarios->insertarNuevoUsuario($nombres,$apellidos,$usuario,$password);
+  /*
   $consulta = $conexionDB->prepare($sql2);
   $consulta->execute();
-  $_SESSION['usuario'] = $_POST['nombreRe'];
-  echo "<script>alert('Usuario Registrado');</script>";
+  */
+  $_SESSION['nombres'] = $nombres;
+  $_SESSION['apellidos'] = $apellidos;
+  $_SESSION['usuario'] = $usuario;
+  $_SESSION['password'] = $password;
+  //echo "<script>alert('Usuario Registrado');</script>";
   header('Location: pages/view_inicio.php');
 }
 
-if($_POST){
+if(isset($_POST['usuario'])){
   $mensaje = 'Usuario o clave incorrecta';
   // if($_POST['usuario']=='admin1' && $_POST['password']=='clave'){
   foreach($listaDeUsuarios as $user){
@@ -72,9 +81,10 @@ if($_POST){
           </div>
         </div>
         <p class="cuenta-nueva">Crear una cuenta</p>
-        <input class="input-form" type="text" name="nombreRe" id="nombre" placeholder="Nombre">
-        <input class="input-form" type="email" name="emailRe" id="email" placeholder="Email">
-        <input class="input-form" type="password" name="passwordRe" id="password" placeholder="Contraseña">
+        <input class="input-form" type="text" name="nombresRe" id="nombresRe" placeholder="Nombres" required>
+        <input class="input-form" type="text" name="apellidosRe" id="apellidosRe" placeholder="Apellidos" required>
+        <input class="input-form" type="text" name="usuarioRe" id="usuarioRe" placeholder="Usuario" required>
+        <input class="input-form" type="password" name="passwordRe" id="passwordRe" placeholder="Contraseña" required>
         <input type="submit" value="Registrarse">
       </form>
     </div>
@@ -91,8 +101,8 @@ if($_POST){
           </div>
         </div>
         <p class="cuenta-nueva">¿Aun no tienes una cuenta?</p>
-        <input class="input-form" type="text" name="usuario" id="usuario" placeholder="Usuario">
-        <input class="input-form" type="password" name="password" id="password" placeholder="Contraseña">
+        <input class="input-form" type="text" name="usuario" id="usuario" placeholder="Usuario" required>
+        <input class="input-form" type="password" name="password" id="password" placeholder="Contraseña" required>
         <?php 
             if(isset($mensaje)){
               echo "<script> alert('$mensaje'); </script>";
