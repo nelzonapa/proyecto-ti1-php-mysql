@@ -56,3 +56,7 @@
   cursor: pointer;
   transition: 0.5s;
 }
+.tabla-estudiantes.cursos{
+  margin-left: 100px;
+  margin-right: 100px;
+}

@@ -19,6 +19,7 @@ class Conexion{
       echo "Error al conectar con la base de datos: Linea => ". $e->getLine();
     }
   }
+
   public function queryExecute($sql){
     $query = $this->conexion->prepare($sql);
     $query->execute();
@@ -166,12 +167,9 @@ class Conexion{
         +(cursos.porcentaje_p3*notas_$idcurso.parcial_3)
         WHERE notas_$idcurso.id_est=$idest";
     
-    
     $query = $this->conexion->prepare($sql);
     $query->execute();
   }
-
-
   
 };
 

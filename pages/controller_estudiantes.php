@@ -33,6 +33,13 @@ class Conexion{
     $res = $this->queryExecute($consulta);
     return $res;             
   }
+
+  public function getInfoByEstudiante($idEst){
+    $consulta = "SELECT * FROM estudiantes_epcc WHERE id_epcc=$idEst";
+    $res = $this->queryExecute($consulta);
+    $infoEst = $res[0];
+    return $infoEst;  
+  }
 }
 
 

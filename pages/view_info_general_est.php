@@ -6,12 +6,14 @@ if(!isset($_SESSION['usuario'])){
 }
 ?>
 <?php 
-include('logic/estudiantes.php'); //por borrar
+//include('logic/estudiantes.php'); //por borrar
 include_once("datosCardBox.php");
 include_once("controller_estudiantes.php");
 
+
+$idEstudianteEpcc = $_POST["id_estudiante"];
 $conexionBDEstudiantes = new Conexion();
-$estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
+$infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteEpcc);
 
 ?>
 
@@ -138,7 +140,14 @@ $estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
           </div>
         </div>
       </div>
-
+      <?php 
+      print_r($_POST);
+      echo "<br>";
+      print_r($_SESSION);
+      echo "<br>";
+      print_r($infoEstudianteEpcc);
+      ?>
+      <h2>Informacion De Estudiante</h2>
       <div class="container_tabla">
         <table id="tablaEstudiantes" class="tabla-estudiantes">
           <thead>
@@ -147,26 +156,34 @@ $estudiantesEpcc = $conexionBDEstudiantes->getAllEstudiantesEpcc();
               <th>Apellidos</th>
               <th>Nombres</th>
               <th>Semestre</th>
-              <th>Informacion</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach($estudiantesEpcc as $estudiante){ ?>
-              <tr class="espacios-tabla">
-                <td class="id"> <?php echo $estudiante['id_epcc']; ?> </td>
-                <td class="apellidos"> <?php echo $estudiante['apellidos_epcc']; ?> </td>
-                <td class="nombres"> <?php echo $estudiante['nombres_epcc']; ?> </td>
-                <td class="semestre"> <?php echo $estudiante['semestre_epcc']; ?>  </td>
-                <td class="btns">
-                  <form method="post" action="view_info_general_est.php" >
-                    <input type="hidden" name="id_estudiante" value="<?php echo $estudiante['id_epcc']; ?>">
-                    <button class="btn-en-tabla" type="submit">Ver</button>
-                  </form>
-                </td>
-              </tr>
-            <?php 
-              } 
-            ?>
+            <tr class="espacios-tabla">
+              <td class="id"> <?php echo $infoEstudianteEpcc["id_epcc"]; ?> </td>
+              <td class="apellidos"> <?php echo $infoEstudianteEpcc["apellidos_epcc"]; ?> </td>
+              <td class="nombres"> <?php echo $infoEstudianteEpcc["nombres_epcc"]; ?> </td>
+              <td class="semestre"> <?php echo $infoEstudianteEpcc["semestre_epcc"]; ?>  </td>
+            </tr>
+          </tbody>  
+        </table>
+      </div>
+      <h2>Lista de Cursos</h2>
+      <div class="container_tabla">
+        <table id="tablaEstudiantes" class="tabla-estudiantes cursos">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Curso</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="espacios-tabla">
+              <td class="id"> <?php echo $infoEstudianteEpcc["id_epcc"]; ?> </td>
+              <td class="apellidos"> <?php echo $infoEstudianteEpcc["apellidos_epcc"]; ?> </td>
+              <td class="nombres"> <?php echo $infoEstudianteEpcc["nombres_epcc"]; ?> </td>
+            </tr>
           </tbody>  
         </table>
       </div>
