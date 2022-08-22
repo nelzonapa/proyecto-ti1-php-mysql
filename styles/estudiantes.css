@@ -56,7 +56,11 @@
   cursor: pointer;
   transition: 0.5s;
 }
-.tabla-estudiantes.cursos{
-  margin-left: 100px;
-  margin-right: 100px;
+.container_tabla.cursos {
+  width: 100%;
+  padding: 20px 80px;
+}
+.container_tabla.estadisticas{
+  width: 100%;
+  padding: 10px 160px;
 }

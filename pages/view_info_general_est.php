@@ -15,6 +15,11 @@ $idEstudianteEpcc = $_POST["id_estudiante"];
 $conexionBDEstudiantes = new Conexion();
 $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteEpcc);
 
+$nombresCursos = $conexionBDEstudiantes->getNombresCursos();
+$infoEstadoCursos = $conexionBDEstudiantes->getInfoEstadoCursos($idEstudianteEpcc);
+$estadisticasCursos = $conexionBDEstudiantes->getEstadisticasCursosByEstudiante($idEstudianteEpcc);
+
+$indicadorCurso = "";
 ?>
 
 
@@ -24,8 +29,8 @@ $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteE
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/nav.css?31">
-  <link rel="stylesheet" href="../styles/estudiantes.css">
+  <link rel="stylesheet" href="../styles/nav.css?31d">
+  <link rel="stylesheet" href="../styles/estudiantes.css?456">
   <link rel="stylesheet" href="../styles/boton.css">
   <title>Inicio</title>
 </head>
@@ -146,6 +151,8 @@ $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteE
       print_r($_SESSION);
       echo "<br>";
       print_r($infoEstudianteEpcc);
+      // echo "<br>";
+      // print_r($nombresCursos);
       ?>
       <h2>Informacion De Estudiante</h2>
       <div class="container_tabla">
@@ -169,8 +176,8 @@ $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteE
         </table>
       </div>
       <h2>Lista de Cursos</h2>
-      <div class="container_tabla">
-        <table id="tablaEstudiantes" class="tabla-estudiantes cursos">
+      <div class="container_tabla cursos">
+        <table id="tablaEstudiantes" class="tabla-estudiantes">
           <thead>
             <tr>
               <th>ID</th>
@@ -179,15 +186,45 @@ $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteE
             </tr>
           </thead>
           <tbody>
-            <tr class="espacios-tabla">
-              <td class="id"> <?php echo $infoEstudianteEpcc["id_epcc"]; ?> </td>
-              <td class="apellidos"> <?php echo $infoEstudianteEpcc["apellidos_epcc"]; ?> </td>
-              <td class="nombres"> <?php echo $infoEstudianteEpcc["nombres_epcc"]; ?> </td>
-            </tr>
+            <?php $i=1; ?>
+            <?php foreach($nombresCursos as $curso){ ?>
+              <tr class="espacios-tabla">
+                <td class="id"> <?php echo $curso["id_curso"]; ?> </td>
+                <td class="apellidos"> <?php echo $curso["nombre_curso"]; ?> </td>
+                <td class="nombres"> <?php echo $infoEstadoCursos[$i] ?> </td>
+              </tr>
+            <?php 
+                $i++;
+              } 
+            ?>
           </tbody>  
         </table>
       </div>
 
+      <div class="container_tabla estadisticas">
+        <table id="tablaEstudiantes" class="tabla-estudiantes">
+          <thead>
+            <tr>
+              <th>Indicador</th>
+              <th>Numero de cursos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach($estadisticasCursos as $curso){ ?>
+              <?php $indicadorCurso = $conexionBDEstudiantes->asignarEstadoByAbreviatura($curso["estado_curso"]); ?>
+              <tr class="espacios-tabla" style="padding-left: 15px;">
+                <td class="nombres"> 
+                  <?php echo "<b>(". $curso["estado_curso"] . ")</b>"; ?>
+                  <?php echo "  " . $indicadorCurso; ?> 
+                </td>
+                <td class="apellidos" style="text-align: center;"> <?php echo $curso["cantidad"]; ?> </td>
+              </tr>
+            <?php
+              } 
+            ?>
+          </tbody>  
+        </table>
+      </div>
       
       <!-- boton -->
       <a href="#principio"><span class="iconarriba"><ion-icon id="botonArriba" name="arrow-up-circle-outline"></ion-icon></span></a>
