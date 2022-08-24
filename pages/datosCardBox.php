@@ -3,7 +3,7 @@
 include_once("../config/db.php");
 date_default_timezone_set('America/Lima');
 $conexionDB = BaseDatos::crearInstancia();
-$res = myquery($conexionDB,"SELECT COUNT(id_est) as 'cantidadEst' FROM estudiantes");
+$res = myquery($conexionDB,"SELECT COUNT(id_epcc) as 'cantidadEst' FROM estudiantes_epcc");
 $numEstudiantes = $res[0]['cantidadEst'];
 $res = myquery($conexionDB,"SELECT COUNT(id_curso) as 'cantidadCursos' FROM cursos");
 $numCursos = $res[0]['cantidadCursos'];

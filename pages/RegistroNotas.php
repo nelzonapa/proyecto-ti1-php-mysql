@@ -8,6 +8,13 @@ include_once("controller_notas.php");
 
 $nombreCurso = $_POST["nombreCurso"];
 $idCurso = $_POST["idCurso"];
+$img_1 = $_POST["base64_1"];
+$img_2 = $_POST["base64_2"];
+$img_3 = $_POST["base64_3"];
+$img_4 = $_POST["base64_4"];
+$img_5 = $_POST["base64_5"];
+$img_6 = $_POST["base64_6"];
+$img_7 = $_POST["base64_7"];
 
 $conexionBD = new Conexion();
 $estudiantes = $conexionBD->getEstudiantes($idCurso);
@@ -127,6 +134,7 @@ foreach($estudiantes as $estudiante){
   $pdf->Cell(20,6,utf8_decode(round($estudiante['nota_final'])),1,1,'C',0);
   $i++;
 }
+$pdf->AddPage();
 
 $pdf->Ln(20);
 $pdf->Cell(0,0,"Datos Generales del curso",0,0,'C',0);
@@ -234,35 +242,35 @@ $pdf->SetFont('Times','',15);
 $pdf->Cell(0,0,"Estadisticas Primera Fase",0,0,'C',0);
 $pdf->Ln(8);
 $pdf->Cell(0,0,"Grafico segun Nota Continua 1",0,5,'C',0);
-$pdf->Image('../resources/myChart1.png' , 30 ,150, 150 , 75,'PNG');
+$pdf->Image( $img_1 , 30 ,150, 150 , 75,'PNG');
 $pdf->Ln(100);
 $pdf->Cell(0,0,"Grafico segun Nota Parcial 1",0,0,'C',0);
-$pdf->Image('../resources/myChart2.png' , 30 ,40, 150 , 75,'PNG');
+$pdf->Image( $img_2 , 30 ,40, 150 , 75,'PNG');
 
 $pdf->Ln(200);
 
 $pdf->Cell(0,0,"Estadisticas Segunda Fase",0,0,'C',0);
 $pdf->Ln(10);
 $pdf->Cell(0,0,"Grafico segun Nota Continua 2",0,5,'C',0);
-$pdf->Image('../resources/myChart3.png' , 30 ,150, 150 , 75,'PNG');
+$pdf->Image($img_3 , 30 ,150, 150 , 75,'PNG');
 $pdf->Ln(100);
 $pdf->Cell(0,0,"Grafico segun Nota Parcial 2",0,0,'C',0);
-$pdf->Image('../resources/myChart4.png' , 30 ,40, 150 , 75,'PNG');
+$pdf->Image($img_4 , 30 ,40, 150 , 75,'PNG');
 
 $pdf->Ln(200);
 
 $pdf->Cell(0,0,"Estadisticas Tercera Fase",0,0,'C',0);
 $pdf->Ln(10);
 $pdf->Cell(0,0,"Grafico segun Nota Continua 3",0,5,'C',0);
-$pdf->Image('../resources/myChart5.png' , 30 ,150, 150 , 75,'PNG');
+$pdf->Image($img_5 , 30 ,150, 150 , 75,'PNG');
 $pdf->Ln(100);
 $pdf->Cell(0,0,"Grafico segun Nota Parcial 3",0,0,'C',0);
-$pdf->Image('../resources/myChart6.png' , 30 ,40, 150 , 75,'PNG');
+$pdf->Image($img_6 , 30 ,40, 150 , 75,'PNG');
 
 $pdf->Ln(150);
 $pdf->Cell(0,0,"Grafico segun Nota Final",0,0,'C',0);
 $pdf->setY(30);
-$pdf->Image('../resources/myChart7.png' , 30 ,38, 150 , 75,'PNG');
+$pdf->Image($img_7 , 30 ,38, 150 , 75,'PNG');
 
 $pdf->Ln(95);
 $pdf->setX(30);
@@ -280,7 +288,7 @@ $pdf->Cell(11,6,utf8_decode("P2"),1,1,'C',0);
 foreach($peligro as $estudiante){
   $pdf->setX(35);
   $pdf->Cell(10,6,utf8_decode($estudiante['id_est']),1,0,'C',0);
-  $pdf->Cell(90,6,utf8_decode($estudiante['apellidos'].$estudiante['nombres']),1,0,'C',0);
+  $pdf->Cell(90,6,utf8_decode($estudiante['apellidos']." ".$estudiante['nombres']),1,0,'C',0);
   $pdf->Cell(11,6,utf8_decode(round($estudiante['continua_1'],2)),1,0,'C',0);
   $pdf->Cell(11,6,utf8_decode(round($estudiante['parcial_1'],2)),1,0,'C',0);
   $pdf->Cell(11,6,utf8_decode(round($estudiante['continua_2'],2)),1,0,'C',0);

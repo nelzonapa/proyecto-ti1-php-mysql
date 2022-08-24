@@ -11,7 +11,7 @@ $conexionDB = BaseDatos::crearInstancia();
         //echo "<label id='dia' class='columna'>".$dia."</label>";
     }
 
-    $sql = "SELECT * FROM estudiantes";
+    $sql = "SELECT * FROM estudiantes_1";
     $consulta = $conexionDB->prepare($sql);
     $consulta->execute();
     $listaDeEstudiantes = $consulta->fetchAll();

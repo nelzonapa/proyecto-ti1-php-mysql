@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //echo "<label id='id' class='columna'> ID del alumno: ".$id."</label>";
 }
 
-$sql = "SELECT * FROM estudiantes WHERE id_est=$id";
+$sql = "SELECT * FROM estudiantes_1 WHERE id_est=$id";
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeEstudiantes = $consulta->fetchAll();

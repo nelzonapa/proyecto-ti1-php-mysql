@@ -7,7 +7,7 @@
         public static function crearInstancia(){
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-            self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
+            self::$instancia = new PDO('mysql:host=localhost;dbname=sistemaasistencia','root','',$opciones);
             //echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;

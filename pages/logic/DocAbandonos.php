@@ -6,8 +6,8 @@ $conexionDB = BaseDatos::crearInstancia();
 
 $img = $_POST['base64'];
 
-$sql1="SELECT * FROM `estudiantes` WHERE totalP=0";
-    $sql2="SELECT * FROM `estudiantes` WHERE totalF=0";
+$sql1="SELECT * FROM `estudiantes_1` WHERE totalP=0";
+    $sql2="SELECT * FROM `estudiantes_1` WHERE totalF=0";
 
     $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();

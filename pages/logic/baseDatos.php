@@ -22,7 +22,7 @@ class baseDEdatos{
   }
 
   function insAsistencia($asistencia,$id,$dia){
-    mysqli_query($this->conexion,"UPDATE estudiantes SET $dia = ('".$asistencia."') WHERE id_est = $id");
+    mysqli_query($this->conexion,"UPDATE estudiantes_1 SET $dia = ('".$asistencia."') WHERE id_est = $id");
     $error = mysqli_error($this->conexion);
     if(empty($error)){
       return true;
@@ -42,8 +42,8 @@ class baseDEdatos{
   }
 
   function insTotalEstudiante($totalP,$totalA,$id){
-    mysqli_query($this->conexion,"UPDATE estudiantes SET totalP = ($totalP) WHERE id_est = $id");
-    mysqli_query($this->conexion,"UPDATE estudiantes SET totalF = ($totalA) WHERE id_est = $id");
+    mysqli_query($this->conexion,"UPDATE estudiantes_1 SET totalP = ($totalP) WHERE id_est = $id");
+    mysqli_query($this->conexion,"UPDATE estudiantes_1 SET totalF = ($totalA) WHERE id_est = $id");
     if(empty($error)){
       return true;
     }
@@ -61,7 +61,7 @@ class baseDEdatos{
   }
 
   function getTabla1() {
-    $result = mysqli_query($this->conexion,"SELECT * FROM estudiantes");
+    $result = mysqli_query($this->conexion,"SELECT * FROM estudiantes_1");
     $error = mysqli_error($this->conexion);
 
     if(empty($error)){

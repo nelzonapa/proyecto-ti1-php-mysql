@@ -1,25 +1,26 @@
 <?php
-include_once 'config/db.php';
+// include_once 'config/db.php';
 include_once ("pages/controller_usuarios.php");
-
 session_start();
-$conexionDB = BaseDatos::crearInstancia();
+// $conexionDB = BaseDatos::crearInstancia();
 $conexionBDUsuarios = new Conexion();
 
 $nombres = isset($_POST['nombresRe']) ? $_POST['nombresRe'] : '';
 $apellidos = isset($_POST['apellidosRe']) ? $_POST['nombresRe'] : '';
 $usuario = isset($_POST['usuarioRe']) ? $_POST['usuarioRe'] : '';
 $password = isset($_POST['passwordRe']) ? $_POST['passwordRe'] : '';
+$permiso = isset($_POST['permisoRe']) ? $_POST['permisoRe'] : '';
 
 $listaDeUsuarios = $conexionBDUsuarios->getAllUsuarios();
 // print_r($res);
 
 if(isset($_POST['nombresRe'])){
-  $conexionBDUsuarios->insertarNuevoUsuario($nombres,$apellidos,$usuario,$password);
-  $_SESSION['nombres'] = $nombres;
-  $_SESSION['apellidos'] = $apellidos;
+  $conexionBDUsuarios->insertarNuevoUsuario($nombres,$apellidos,$usuario,$password,$permiso);
   $_SESSION['usuario'] = $usuario;
   $_SESSION['password'] = $password;
+  $_SESSION['nombres'] = $nombres;
+  $_SESSION['apellidos'] = $apellidos;
+  $_SESSION['permiso'] = $permiso;
   //echo "<script>alert('Usuario Registrado');</script>";
   header('Location: pages/view_inicio.php');
 }
@@ -49,7 +50,7 @@ if(isset($_POST['usuario'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/login.css?135">
+    <link rel="stylesheet" href="styles/login.css?4567">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -81,6 +82,13 @@ if(isset($_POST['usuario'])){
         <input class="input-form registro" type="text" name="apellidosRe" id="apellidosRe" placeholder="Apellidos" required>
         <input class="input-form registro" type="text" name="usuarioRe" id="usuarioRe" placeholder="Usuario" required>
         <input class="input-form registro" type="password" name="passwordRe" id="passwordRe" placeholder="Contraseña" required>
+        <select name="permisoRe" id="permiso" class="selectCurso">
+          <option value="">Elegir Asignatura...</option>
+          <option value="1_docente">Trabajo Interdisciplinar I</option>
+          <option value="2_docente">Ciencia De La Computacion</option>
+          <option value="3_docente">Desarrollo Basado en Plataformas</option>
+          <option value="4_docente">Arquitectura de Computadores</option>
+        </select>
         <input clas="btn-register" id="btn-register" type="submit" value="Registrarse">
       </form>
     </div>

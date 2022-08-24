@@ -177,9 +177,18 @@ $arrayTitulosNotas = array(
         <!-- <button class="btn_pdf"><a class="a_name" href="RegistroNotas.php" target="_blank" >Descargar Registro</a> </button> -->
         <!-- <a class="btn_pdf" href="RegistroNotas.php" target="_blank" >Descargar Registro</a> -->
         <div id="container-btnDescargar">
-          <form id="btnDescargarRegistro" action="RegistroNotas.php" method="post" target="_blank">
+          <form id="btnDescargarRegistro" action="RegistroNotas.php" method="post" target="_blank" >
             <input type="hidden" name="nombreCurso" value="<?php echo $nombreCurso; ?>">
             <input type="hidden" name="idCurso" value="<?php echo $idCurso; ?>">
+
+            <input type="hidden" name="base64_1" id="base64_1"/>
+            <input type="hidden" name="base64_2" id="base64_2"/>
+            <input type="hidden" name="base64_3" id="base64_3"/>
+            <input type="hidden" name="base64_4" id="base64_4"/>
+            <input type="hidden" name="base64_5" id="base64_5"/>
+            <input type="hidden" name="base64_6" id="base64_6"/>
+            <input type="hidden" name="base64_7" id="base64_7"/>
+
             <button id="btnDescargar" class="btns_a" type="submit">Descargar Registro</button>
           </form>
         </div>
@@ -776,6 +785,46 @@ $arrayTitulosNotas = array(
         </script>
         <br><br>
       </section>
+
+      
+      <script>
+        let boton = document.getElementById('btnDescargar');
+        var ncanva1 = document.getElementById('myChart1');
+        var ncanva2 = document.getElementById('myChart2');
+        var ncanva3 = document.getElementById('myChart3');
+        var ncanva4 = document.getElementById('myChart4');
+        var ncanva5 = document.getElementById('myChart5');
+        var ncanva6 = document.getElementById('myChart6');
+        var ncanva7 = document.getElementById('myChart7');
+
+        boton.addEventListener('click', function() {;
+          var img1 = ncanva1.toDataURL('image/png');
+          document.getElementById('base64_1').value = img1;
+
+          var img2 = ncanva2.toDataURL('image/png');
+          document.getElementById('base64_2').value = img2;
+
+          var img3 = ncanva3.toDataURL('image/png');
+          document.getElementById('base64_3').value = img3;
+
+          var img4 = ncanva4.toDataURL('image/png');
+          document.getElementById('base64_4').value = img4;
+
+          var img5 = ncanva5.toDataURL('image/png');
+          document.getElementById('base64_5').value = img5;
+
+          var img6 = ncanva6.toDataURL('image/png');
+          document.getElementById('base64_6').value = img6;
+
+          var img7 = ncanva7.toDataURL('image/png');
+          document.getElementById('base64_7').value = img7;
+        })
+
+      </script>
+
+      
+
+
       <a href="#principio"><span class="iconarriba"><ion-icon id="botonArriba" name="arrow-up-circle-outline"></ion-icon></span></a>
       <script type="text/javascript" src="../js/botonArriba.js"></script>
     </div>

@@ -42,12 +42,12 @@ class Conexion{
   }
 
 
-  public function insertarNuevoUsuario($nombres,$apellidos,$usuario,$password){
+  public function insertarNuevoUsuario($nombres,$apellidos,$usuario,$password,$permiso){
     $resNumUsuarios = $this->queryExecute("SELECT COUNT(codigo) as 'cantidadUsua' FROM usuarios");
     $numUsuarios = $resNumUsuarios[0]['cantidadUsua'];
     $nuevoCodigo = $numUsuarios+1;
 
-    $sql = "INSERT INTO `usuarios` (`codigo`, `usuario`, `password`, `nombres`, `apellidos`, `email`, `permiso`) VALUES ($nuevoCodigo, '$usuario', '$password', '$nombres', '$apellidos', '', '')";
+    $sql = "INSERT INTO `usuarios` (`codigo`, `usuario`, `password`, `nombres`, `apellidos`, `email`, `permiso`) VALUES ($nuevoCodigo, '$usuario', '$password', '$nombres', '$apellidos', '', '$permiso')";
     $query = $this->conexion->prepare($sql);
     $query->execute();
   }

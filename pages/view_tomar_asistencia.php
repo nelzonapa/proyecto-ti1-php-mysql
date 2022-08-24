@@ -115,10 +115,10 @@ if (!isset($_SESSION['usuario'])) {
       <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $dia = $_POST["botonDia"];
-          //echo "<label id='dia' class='columna'>" . $dia . "</label>";
+          //;
         }
       ?>
-      <h2>ASISTENCIA (<?php echo strtoupper($dia); ?> )</h2>
+      <h2>ASISTENCIA (<?php echo "<label id='dia' class='columna'>" . $dia . "</label>"; ?> )</h2>
       <section id="contenido">
         
         <table id="tabla" class="tabla">

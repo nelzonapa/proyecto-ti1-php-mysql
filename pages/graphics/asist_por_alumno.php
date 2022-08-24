@@ -7,7 +7,7 @@
         public static function crearInstancia(){
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-            self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
+            self::$instancia = new PDO('mysql:host=localhost;dbname=sistemaasistencia','root','',$opciones);
             echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
@@ -22,7 +22,7 @@
     $conexionDB = BaseDatos::crearInstancia();
 
 
-    $sql1="SELECT * FROM `estudiantes` WHERE id_est=$id";
+    $sql1="SELECT * FROM `estudiantes_1` WHERE id_est=$id";
 
     $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();
@@ -37,7 +37,7 @@
     <h3>Asignatura: Trabajo Interdisciplinar<?php //echo $asignatura; ?></h3>
     <form action="../logic/DocAlumno.php" method="post">
 
-    <form method="POST" action="../logic/DocAlumno.php" name="form" id="form">
+    <form method="POST" action="../logic/DocAlumno.php" name="form" id="form" target="blank">
       <input type="hidden" name="base64" id="base64"/>
       <button class="btn_pdf" name="boton" type="submit" id="sBtn" value="<?php echo $id ?>">Descargar Registro</button>
     </form>
@@ -156,7 +156,14 @@ var img = ncanva.toDataURL("image/png");
 });
 </script>
 
-    </html>
+    <!-- </html>
 
     </body>
-    </html>
+    </html> -->
+
+    <script src="../js/nav.js"></script>
+  
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

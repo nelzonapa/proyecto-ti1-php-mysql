@@ -10,7 +10,7 @@ class BaseDatos
   {
     if (!isset(self::$instancia)) { //si la instancia tiene algo?
       $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-      self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon', 'root', '', $opciones);
+      self::$instancia = new PDO('mysql:host=localhost;dbname=sistemaasistencia', 'root', '', $opciones);
       //echo "Conexion satisfactoria a la Base de Datos ...";
     }
     return self::$instancia;
@@ -24,17 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conexionDB = BaseDatos::crearInstancia();
 
-$sql = "SELECT * FROM estudiantes";
+$sql = "SELECT * FROM estudiantes_1";
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeEstudiantes = $consulta->fetchAll();
 
 $sql1 = "SELECT COUNT($dia) as 'presentes'
-      FROM estudiantes
+      FROM estudiantes_1
       WHERE $dia='P'
       ";
 $sql2 = "SELECT COUNT($dia) as 'faltantes'
-      FROM estudiantes
+      FROM estudiantes_1
       WHERE $dia='F'
       ";
 $consulta = $conexionDB->prepare($sql1);
@@ -159,9 +159,12 @@ $dato2 = $numfaltantes[0]['faltantes'];
         <h3>Asignatura: Trabajo Interdisciplinar <?php //echo $asignatura; 
                                                   ?></h3>
         <br>
-        <form action="../logic/DocDia.php" method="post">
-          <button id="bboton1" name="boton" class="btn_pdf" type="submit" value="<?php echo $dia ?>">Descargar Registro</button>
+
+        <form method="POST" action="../logic/DocDia.php" name="form" id="form" target="blank">
+          <input type="hidden" name="base64" id="base64" />
+          <button class="btn_pdf" name="boton" type="submit" id="sBtn" value="<?php echo $dia ?>">Descargar Registro</button>
         </form>
+
         <div class="table-container-notas">
           <table id="tablaUsuarios" class="tabla">
             <thead>
@@ -234,55 +237,55 @@ $dato2 = $numfaltantes[0]['faltantes'];
           <button id="botonRegresar" class="btn_volver" type="button" onclick="location.href='../view_menu_estadistica_dia.php'">Volver</button>
 
           <script>
-  const ctx = document.getElementById('canvas').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Presentes', 'Faltas'],
-      datasets: [{
-        label: 'Total',
-        backgroundColor: [
-          "rgb(0, 150, 254)",
-          "rgb(150, 100, 50)"
-        ],
-        data: [<?php echo $dato . "," . $dato2 ?>],
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
+            const ctx = document.getElementById('canvas').getContext('2d');
+            var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: ['Presentes', 'Faltas'],
+                datasets: [{
+                  label: 'Total',
+                  backgroundColor: [
+                    "rgb(0, 150, 254)",
+                    "rgb(150, 100, 50)"
+                  ],
+                  data: [<?php echo $dato . "," . $dato2 ?>],
+                }]
+              },
+              options: {
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                }
+              }
+            });
 
-  function Descargar() {
-        const imageLink = document.createElement('a');
-        const canvas = document.getElementById('canvas');
-        imageLink.download = 'est_dia.png';
-        imageLink.href = canvas.toDataURL('image/png');
-        imageLink.click();
-        console.log(imageLink);
-      };
-</script>
-<script>
-      sBtn.addEventListener("click", function() {
-        var ncanva = document.getElementById("canvas");
-        var img = ncanva.toDataURL("image/png");
-        document.getElementById('base64').value = img;
-      });
-</script>
+            function Descargar() {
+              const imageLink = document.createElement('a');
+              const canvas = document.getElementById('canvas');
+              imageLink.download = 'est_dia.png';
+              imageLink.href = canvas.toDataURL('image/png');
+              imageLink.click();
+              console.log(imageLink);
+            };
+          </script>
+          <script>
+            sBtn.addEventListener("click", function() {
+              var ncanva = document.getElementById("canvas");
+              var img = ncanva.toDataURL("image/png");
+              document.getElementById('base64').value = img;
+            });
+          </script>
 
-<!-- </div> -->
-<!-- </div> -->
-<script src="../../js/nav.js"></script>
+          <!-- </div> -->
+          <!-- </div> -->
+          <script src="../../js/nav.js"></script>
 
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-          
+          <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+          <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
 
 

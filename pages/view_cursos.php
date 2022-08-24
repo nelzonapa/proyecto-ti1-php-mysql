@@ -4,7 +4,16 @@ if(!isset($_SESSION['usuario'])){
   header('Location: ../index.php');
 }
 ?>
-<?php include('logic/cursos.php'); ?>
+<?php 
+// include('logic/cursos.php'); 
+include_once '../config/db.php';
+$conexionDB = BaseDatos::crearInstancia();
+
+$listaCursos = myquery($conexionDB,"SELECT id_curso,nombre_curso FROM cursos");
+
+?>
+
+
 <?php include("controller_notas.php"); ?>
 
 <!DOCTYPE html>

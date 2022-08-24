@@ -8,7 +8,7 @@ if(!isset($_SESSION['usuario'])){
         public static function crearInstancia(){
           if(!isset(self::$instancia)){ //si la instancia tiene algo?
             $opciones[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-            self::$instancia = new PDO('mysql:host=localhost;dbname=nelzon','root','',$opciones);
+            self::$instancia = new PDO('mysql:host=localhost;dbname=sistemaasistencia','root','',$opciones);
             //echo "Conexion satisfactoria a la Base de Datos ...";
           }
           return self::$instancia;
@@ -22,8 +22,8 @@ if(!isset($_SESSION['usuario'])){
 
     $conexionDB = BaseDatos::crearInstancia();
 
-    $sql1="SELECT * FROM `estudiantes` WHERE totalP=0";
-    $sql2="SELECT * FROM `estudiantes` WHERE totalF=0";
+    $sql1="SELECT * FROM `estudiantes_1` WHERE totalP=0";
+    $sql2="SELECT * FROM `estudiantes_1` WHERE totalF=0";
 
     $consulta = $conexionDB->prepare($sql1);
     $consulta->execute();

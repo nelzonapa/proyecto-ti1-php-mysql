@@ -159,7 +159,7 @@ body {
 }
 
 .input-form::placeholder{
-  color: rgb(177, 177, 177);
+  color: #b1b1b1;
   font-style: normal;
 }
 
@@ -171,4 +171,15 @@ input#btn-register{
 }
 h2#iniciar_sesion{
   margin-top: 50px;
+}
+#permiso{
+  border-style: none;
+  background-color: transparent;
+  color: #b1b1b1;
+  border-bottom: 1px solid #fff;
+  width: 70%;
+  text-align: center;
+}
+#permiso option{
+  color: #222;
 }

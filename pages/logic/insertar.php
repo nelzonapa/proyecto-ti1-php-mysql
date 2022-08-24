@@ -2,7 +2,7 @@
 include("BaseDatos.php");
 include("../view_asistencia.php");
 
-$BaseDatos = new baseDEdatos("localhost","root","","nelzon");
+$BaseDatos = new baseDEdatos("localhost","root","","sistemaasistencia");
 $BaseDatos->conectar();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){

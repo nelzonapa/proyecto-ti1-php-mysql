@@ -5,7 +5,7 @@ $conexionDB = BaseDatos::crearInstancia();?>
 
 <?php
 //------------------- lista de estudaintes y sus notas ---------------
-$sql = "SELECT * FROM estudiantes";
+$sql = "SELECT * FROM estudiantes_1";
 $consulta = $conexionDB->prepare($sql);
 $consulta->execute();
 $listaDeEstudiantes = $consulta->fetchAll();
