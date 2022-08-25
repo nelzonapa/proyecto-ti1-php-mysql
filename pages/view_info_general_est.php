@@ -15,6 +15,15 @@ $idEstudianteEpcc = $_POST["id_estudiante"];
 $conexionBDEstudiantes = new Conexion();
 $infoEstudianteEpcc = $conexionBDEstudiantes->getInfoByEstudiante($idEstudianteEpcc);
 
+
+/*PARTE DONDE ACTUALIZAMOS EL ESTADO DEL ESTUDIANTE */
+$nombreEstud=$conexionBDEstudiantes->getNameEstudiante($idEstudianteEpcc);
+$conexionBDEstudiantes->DetectarEstudianteExistente($nombreEstud);
+$conexionBDEstudiantes->ActualizarEstadoCursoPorEstudiante();
+$conexionBDEstudiantes->ActualizarNoAptosSiAptos($idEstudianteEpcc);
+
+
+
 $nombresCursos = $conexionBDEstudiantes->getNombresCursos();
 $infoEstadoCursos = $conexionBDEstudiantes->getInfoEstadoCursos($idEstudianteEpcc);
 $estadisticasCursos = $conexionBDEstudiantes->getEstadisticasCursosByEstudiante($idEstudianteEpcc);
